@@ -3,6 +3,7 @@
 #include <string>
 #include <boost/serialization/access.hpp>
 #include <configmaps/ConfigMap.hpp>
+#include <base-logging/Logging.hpp>
 
 namespace envire
 {

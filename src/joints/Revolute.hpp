@@ -2,6 +2,7 @@
 
 #include <string>
 #include <base/Eigen.hpp>
+#include <base-logging/Logging.hpp>
 #include <boost/serialization/access.hpp>
 #include <configmaps/ConfigMap.hpp>
 
