@@ -28,6 +28,7 @@ rock_library(envire_types
         motors/DC.hpp
         motors/PID.hpp
         motors/DirectEffort.hpp
+        motors/FeedForwardEffort.hpp
         sensors/CameraSensor.hpp
         sensors/RaySensor.hpp
         registration/TypeCreatorInterface.hpp

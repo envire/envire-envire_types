@@ -39,6 +39,8 @@ ENVIRE_TYPE_CREATOR_REGISTRATION( envire::types::motors::DC )
 ENVIRE_TYPE_CREATOR_REGISTRATION( envire::types::motors::PID )
 #include "../motors/DirectEffort.hpp"
 ENVIRE_TYPE_CREATOR_REGISTRATION( envire::types::motors::DirectEffort )
+#include "../motors/FeedForwardEffort.hpp"
+ENVIRE_TYPE_CREATOR_REGISTRATION( envire::types::motors::FeedForwardEffort )
 
 #include "../sensors/CameraSensor.hpp"
 ENVIRE_TYPE_CREATOR_REGISTRATION( envire::types::sensors::CameraSensor )
