@@ -14,6 +14,7 @@ rock_library(envire_types
         World.hpp
         Link.hpp
         Inertial.hpp
+        geometry/Heightfield.hpp
         geometry/Box.hpp
         geometry/Capsule.hpp
         geometry/Cylinder.hpp
