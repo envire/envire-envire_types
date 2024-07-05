@@ -20,6 +20,8 @@ ENVIRE_TYPE_CREATOR_REGISTRATION( envire::types::joints::Revolute )
 #include "../joints/Prismatic.hpp"
 ENVIRE_TYPE_CREATOR_REGISTRATION( envire::types::joints::Prismatic )
 
+#include "../geometry/Heightfield.hpp"
+ENVIRE_TYPE_CREATOR_REGISTRATION( envire::types::geometry::Heightfield )
 #include "../geometry/Box.hpp"
 ENVIRE_TYPE_CREATOR_REGISTRATION( envire::types::geometry::Box )
 #include "../geometry/Capsule.hpp"
