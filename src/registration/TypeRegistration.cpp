@@ -48,5 +48,7 @@ ENVIRE_TYPE_CREATOR_REGISTRATION( envire::types::motors::FeedForwardEffort )
 ENVIRE_TYPE_CREATOR_REGISTRATION( envire::types::sensors::CameraSensor )
 #include "../sensors/RaySensor.hpp"
 ENVIRE_TYPE_CREATOR_REGISTRATION( envire::types::sensors::RaySensor )
+#include "../sensors/RotatingRaySensor.hpp"
+ENVIRE_TYPE_CREATOR_REGISTRATION( envire::types::sensors::RotatingRaySensor )
 #include "../sensors/Joint6DOFSensor.hpp"
 ENVIRE_TYPE_CREATOR_REGISTRATION( envire::types::sensors::Joint6DOFSensor )

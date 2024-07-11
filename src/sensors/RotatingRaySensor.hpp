@@ -5,32 +5,24 @@
 #include <base-logging/Logging.hpp>
 #include <boost/serialization/access.hpp>
 
-// TODO: add constructor with configmap
-
 namespace envire
 {
     namespace types
     {
         namespace sensors {
-            struct RaySensor
+            struct RotatingRaySensor
             {
-                RaySensor() {}
+                RotatingRaySensor() {}
 
-                RaySensor(configmaps::ConfigMap configMap_) : configMap(configMap_)
+                RotatingRaySensor(configmaps::ConfigMap configMap_) : configMap(configMap_)
                 {
-                    if (configMap.hasKey("name")
-                        && configMap.hasKey("max_distance")
-                        && configMap.hasKey("opening_width"))
+                    if (configMap.hasKey("name"))
                     {
                         name = configMap["name"].toString();
-                        maxDistance = configMap["max_distance"];
-                        openingWidth = configMap["opening_width"];
 
                         // we avoid the value dublication
                         // delete the keys, since we stored their values as class parameters
                         configMap.erase("name");
-                        configMap.erase("max_distance");
-                        configMap.erase("opening_width");
                     }
                     else
                     {
@@ -42,15 +34,10 @@ namespace envire
                 std::string name;
                 configmaps::ConfigMap configMap;
 
-                double maxDistance;
-                double openingWidth;
-
                 configmaps::ConfigMap getFullConfigMap() {
                     configmaps::ConfigMap config;
                     config.append(configMap);
                     config["name"] = name;
-                    config["max_distance"] = maxDistance;
-                    config["opening_width"] = openingWidth;
                     return config;
                 }
 
@@ -61,7 +48,7 @@ namespace envire
                 template <typename Archive>
                 void serialize(Archive &ar, const unsigned int version)
                 {
-                    throw std::runtime_error("envire::types::RaySensor serialize not implemented");
+                    throw std::runtime_error("envire::types::RotatingRaySensor serialize not implemented");
                 }
             };
         }

@@ -32,6 +32,7 @@ rock_library(envire_types
         motors/FeedForwardEffort.hpp
         sensors/CameraSensor.hpp
         sensors/RaySensor.hpp
+        sensors/RotatingRaySensor.hpp
         sensors/Joint6DOFSensor.hpp
         registration/TypeCreatorInterface.hpp
         registration/TypeCreatorFactory.hpp
