@@ -56,9 +56,6 @@ namespace envire
                     return "plane";
                 }
 
-                base::Vector2d size;
-                std::shared_ptr<Material> material;
-
                 configmaps::ConfigMap getFullConfigMap() const override
                 {
                     configmaps::ConfigMap config;
@@ -81,6 +78,9 @@ namespace envire
                 {
                     throw std::runtime_error("envire::types::Plane serialize not implemented");
                 }
+            private:
+                base::Vector2d size;
+                std::shared_ptr<Material> material;
             };
         }
     }

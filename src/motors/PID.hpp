@@ -58,14 +58,6 @@ namespace envire
                     return "PID";
                 }
 
-                double p;
-                double i;
-                double d;
-                double minPosition;
-                double maxPosition;
-                double maxEffort;
-                double maxSpeed;
-
                 configmaps::ConfigMap getFullConfigMap() const override
                 {
                     configmaps::ConfigMap config;
@@ -91,6 +83,15 @@ namespace envire
                 {
                     throw std::runtime_error("envire::types::MotorPID serialize not implemented");
                 }
+
+            private:
+                double p;
+                double i;
+                double d;
+                double minPosition;
+                double maxPosition;
+                double maxEffort;
+                double maxSpeed;
             };
         }
     }

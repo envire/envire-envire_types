@@ -102,12 +102,6 @@ namespace envire
                     return "material";
                 }
 
-                Color ambientColor;
-                Color diffuseColor;
-                Color specularColor;
-                double shininess;
-                std::string textureFilename;
-
                 configmaps::ConfigMap getFullConfigMap() const override
                 {
                     configmaps::ConfigMap config;
@@ -131,6 +125,12 @@ namespace envire
                 {
                     throw std::runtime_error("envire::types::Box serialize not implemented");
                 }
+            private:
+                Color ambientColor;
+                Color diffuseColor;
+                Color specularColor;
+                double shininess;
+                std::string textureFilename;
             };
         }
     }

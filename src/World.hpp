@@ -18,7 +18,7 @@ namespace envire
             World(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)
             {
                 name_ = configMap_["name"].toString();
-                prefix = configMap_["prefix"].toString();
+                prefix_ = configMap_["prefix"].toString();
 
                 // we avoid the value dublication
                 // delete the keys, since we stored their values as class parameters
@@ -31,16 +31,19 @@ namespace envire
                 return "world";
             }
 
-            std::string prefix;
-
             configmaps::ConfigMap getFullConfigMap() const override
             {
                 configmaps::ConfigMap config;
                 config.append(configMap_);
                 config["name"] = getName();
                 config["type"] = getType();
-                config["prefix"] = prefix;
+                config["prefix"] = getPrefix();
                 return config;
+            }
+
+            const std::string& getPrefix() const
+            {
+                return prefix_;
             }
 
             /**Grants access to boost serialization */
@@ -52,6 +55,9 @@ namespace envire
             {
                 throw std::runtime_error("envire::types::World::serialize not implemented");
             }
+
+        private:
+            std::string prefix_;
         };
     }
 }

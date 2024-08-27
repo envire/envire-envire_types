@@ -57,10 +57,6 @@ namespace envire
                     return "capsule";
                 }
 
-                double radius;
-                double length;
-                std::shared_ptr<Material> material;
-
                 configmaps::ConfigMap getFullConfigMap() const override
                 {
                     configmaps::ConfigMap config;
@@ -85,6 +81,10 @@ namespace envire
                 {
                     throw std::runtime_error("envire::types::Capsule serialize not implemented");
                 }
+            private:
+                double radius;
+                double length;
+                std::shared_ptr<Material> material;
             };
         }
     }

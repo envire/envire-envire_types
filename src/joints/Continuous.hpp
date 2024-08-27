@@ -51,10 +51,6 @@ namespace envire
                     return "continuous";
                 }
 
-                base::Vector3d axis;
-                double maxEffort;
-                double maxVelocity;
-
                 configmaps::ConfigMap getFullConfigMap() const override
                 {
                     configmaps::ConfigMap config;
@@ -78,6 +74,11 @@ namespace envire
                 {
                     throw std::runtime_error("envire::types::Box serialize not implemented");
                 }
+
+            private:
+                base::Vector3d axis;
+                double maxEffort;
+                double maxVelocity;
             };
         }
     }

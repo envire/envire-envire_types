@@ -51,8 +51,6 @@ namespace envire
                     return "heightfield";
                 }
 
-                std::shared_ptr<Material> material;
-
                 configmaps::ConfigMap getFullConfigMap() const override
                 {
                     configmaps::ConfigMap config;
@@ -73,6 +71,8 @@ namespace envire
                 {
                     throw std::runtime_error("envire::types::Heightfield serialize not implemented");
                 }
+            private:
+                std::shared_ptr<Material> material;
             };
         }
     }

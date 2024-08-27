@@ -66,10 +66,6 @@ namespace envire
                     return "mesh";
                 }
 
-                std::string filename;
-                base::Vector3d scale;
-                std::shared_ptr<Material> material;
-
                 configmaps::ConfigMap getFullConfigMap() const override
                 {
                     configmaps::ConfigMap config;
@@ -94,6 +90,10 @@ namespace envire
                 {
                     throw std::runtime_error("envire::types::Mesh serialize not implemented");
                 }
+            private:
+                std::string filename;
+                base::Vector3d scale;
+                std::shared_ptr<Material> material;
             };
         }
     }

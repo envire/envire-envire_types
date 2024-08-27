@@ -46,9 +46,6 @@ namespace envire
                     return "camera";
                 }
 
-                double openingWidth;
-                double openingHeight;
-
                 configmaps::ConfigMap getFullConfigMap() const override
                 {
                     configmaps::ConfigMap config;
@@ -68,6 +65,10 @@ namespace envire
                 {
                     throw std::runtime_error("envire::types::MotorDC serialize not implemented");
                 }
+
+            private:
+                double openingWidth;
+                double openingHeight;
             };
         }
     }

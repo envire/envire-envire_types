@@ -53,9 +53,6 @@ namespace envire
                     return "sphere";
                 }
 
-                double radius;
-                std::shared_ptr<Material> material;
-
                 configmaps::ConfigMap getFullConfigMap() const override
                 {
                     configmaps::ConfigMap config;
@@ -77,6 +74,10 @@ namespace envire
                 {
                     throw std::runtime_error("envire::types::Sphere serialize not implemented");
                 }
+
+            private:
+                double radius;
+                std::shared_ptr<Material> material;
             };
         }
     }

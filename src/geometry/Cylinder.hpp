@@ -56,10 +56,6 @@ namespace envire
                     return "cylinder";
                 }
 
-                double radius;
-                double length;
-                std::shared_ptr<Material> material;
-
                 configmaps::ConfigMap getFullConfigMap() const override
                 {
                     configmaps::ConfigMap config;
@@ -82,6 +78,10 @@ namespace envire
                 {
                     throw std::runtime_error("envire::types::Cylinder serialize not implemented");
                 }
+            private:
+                double radius;
+                double length;
+                std::shared_ptr<Material> material;
             };
         }
     }

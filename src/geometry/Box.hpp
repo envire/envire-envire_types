@@ -58,9 +58,6 @@ namespace envire
                     return "box";
                 }
 
-                base::Vector3d size;
-                std::shared_ptr<Material> material;
-
                 configmaps::ConfigMap getFullConfigMap() const override
                 {
                     configmaps::ConfigMap config;
@@ -86,6 +83,10 @@ namespace envire
                 {
                     throw std::runtime_error("envire::types::Box serialize not implemented");
                 }
+
+            private:
+                base::Vector3d size;
+                std::shared_ptr<Material> material;
             };
         }
     }

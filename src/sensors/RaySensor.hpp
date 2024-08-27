@@ -47,9 +47,6 @@ namespace envire
                     return "ray";
                 }
 
-                double maxDistance;
-                double openingWidth;
-
                 configmaps::ConfigMap getFullConfigMap() const override
                 {
                     configmaps::ConfigMap config;
@@ -69,6 +66,10 @@ namespace envire
                 {
                     throw std::runtime_error("envire::types::RaySensor serialize not implemented");
                 }
+
+            private:
+                double maxDistance;
+                double openingWidth;
             };
         }
     }

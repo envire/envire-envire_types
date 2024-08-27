@@ -58,11 +58,6 @@ namespace envire
                     return "ff_torque";
                 }
 
-                double minValue, maxValue;
-                double maxEffort;
-                double maxSpeed;
-                bool maxEffortControl;
-
                 configmaps::ConfigMap getFullConfigMap() const override
                 {
                     configmaps::ConfigMap config;
@@ -86,6 +81,11 @@ namespace envire
                 {
                     throw std::runtime_error("envire::types::MotorFeedForwardEffort serialize not implemented");
                 }
+            private:
+                double minValue, maxValue;
+                double maxEffort;
+                double maxSpeed;
+                bool maxEffortControl;
             };
         }
     }

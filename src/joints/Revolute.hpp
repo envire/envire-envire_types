@@ -55,12 +55,6 @@ namespace envire
                     return "revolute";
                 }
 
-                base::Vector3d axis;
-                double minPosition;
-                double maxPosition;
-                double maxEffort;
-                double maxVelocity;
-
                 configmaps::ConfigMap getFullConfigMap() const override
                 {
                     configmaps::ConfigMap config;
@@ -77,6 +71,11 @@ namespace envire
                     return config;
                 }
 
+                const base::Vector3d& getAxis() const
+                {
+                    return axis;
+                }
+
                 /**Grants access to boost serialization */
                 friend class boost::serialization::access;
 
@@ -86,6 +85,13 @@ namespace envire
                 {
                     throw std::runtime_error("envire::types::Box serialize not implemented");
                 }
+
+            private:
+                base::Vector3d axis;
+                double minPosition;
+                double maxPosition;
+                double maxEffort;
+                double maxVelocity;
             };
         }
     }

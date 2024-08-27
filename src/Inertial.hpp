@@ -44,9 +44,6 @@ namespace envire
                 return "inertial";
             }
 
-            double mass;
-            double xx,xy,xz,yy,yz,zz;
-
             configmaps::ConfigMap getFullConfigMap() const override
             {
                 configmaps::ConfigMap config;
@@ -73,6 +70,15 @@ namespace envire
             {
                 throw std::runtime_error("envire::types::Inertial::serialize not implemented");
             }
+
+        private:
+            double mass;
+            double xx;
+            double xy;
+            double xz;
+            double yy;
+            double yz;
+            double zz;
         };
     }
 }
