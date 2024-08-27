@@ -20,10 +20,11 @@ namespace envire
                 Mesh() : Mesh(std::string(), std::string())
                 {}
 
-                Mesh(std::string name, std::string filename) : Mesh(name, filename, base::Vector3d(1., 1., 1.))
+                Mesh(const std::string& name, const std::string& filename) : Mesh(name, filename, base::Vector3d(1., 1., 1.))
                 {}
 
-                Mesh(std::string name, std::string filename, base::Vector3d scale) : EnvireTypeBase(name), filename(filename), scale(scale)
+                Mesh(const std::string& name, const std::string& filename, const base::Vector3d& scale)
+                    : EnvireTypeBase(name), filename(filename), scale(scale)
                 {}
 
                 // TODO: store other values in configMap_ in the configMap_ variable

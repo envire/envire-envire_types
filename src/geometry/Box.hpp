@@ -9,6 +9,7 @@
 #include <configmaps/ConfigMap.hpp>
 #include "Material.hpp"
 
+
 namespace envire
 {
     namespace types
@@ -21,7 +22,7 @@ namespace envire
                 Box() : Box(std::string(), base::Vector3d::Zero())
                 {}
 
-                Box(std::string name, base::Vector3d size) : EnvireTypeBase(name), size(size)
+                Box(const std::string& name, const base::Vector3d& size) : EnvireTypeBase(name), size(size)
                 {}
 
                 Box(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)

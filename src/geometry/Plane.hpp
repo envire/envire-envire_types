@@ -20,7 +20,7 @@ namespace envire
                 Plane() : Plane(std::string(), base::Vector2d(0., 0.))
                 {}
 
-                Plane(std::string name, base::Vector2d size) : EnvireTypeBase(name), size(size)
+                Plane(const std::string& name, const base::Vector2d& size) : EnvireTypeBase(name), size(size)
                 {}
 
                 // TODO: store other values in configMap_ in the configMap_ variable

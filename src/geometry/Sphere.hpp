@@ -19,7 +19,7 @@ namespace envire
                 Sphere() : Sphere(std::string(), 0.)
                 {}
 
-                Sphere(std::string name, double radius) : EnvireTypeBase(name), radius(radius)
+                Sphere(const std::string& name, const double radius) : EnvireTypeBase(name), radius(radius)
                 {}
 
                 // TODO: store other values in configMap_ in the configMap_ variable

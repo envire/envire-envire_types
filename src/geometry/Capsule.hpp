@@ -20,7 +20,8 @@ namespace envire
                 Capsule() : Capsule(std::string(), 0., 0.)
                 {}
 
-                Capsule(std::string name, double radius, double length) : EnvireTypeBase(name), radius(radius), length(length)
+                Capsule(const std::string& name, const double radius, const double length)
+                    : EnvireTypeBase(name), radius(radius), length(length)
                 {}
 
                 Capsule(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)

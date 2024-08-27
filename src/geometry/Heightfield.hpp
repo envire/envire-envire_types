@@ -21,7 +21,7 @@ namespace envire
                 Heightfield() : Heightfield(std::string())
                 {}
 
-                Heightfield(std::string name) : EnvireTypeBase(name)
+                Heightfield(const std::string& name) : EnvireTypeBase(name)
                 {}
 
                 Heightfield(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)

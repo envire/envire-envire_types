@@ -19,7 +19,8 @@ namespace envire
                 Cylinder() : Cylinder(std::string(), 0., 0.)
                 {}
 
-                Cylinder(std::string name, double radius, double length) : EnvireTypeBase(name), radius(radius), length(length)
+                Cylinder(const std::string& name, const double radius, const double length)
+                    : EnvireTypeBase(name), radius(radius), length(length)
                 {}
 
                 Cylinder(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)
