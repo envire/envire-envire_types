@@ -44,8 +44,12 @@ namespace envire
                     }
                 }
 
+                std::string getType() const override
+                {
+                    return "sphere";
+                }
+
                 std::string name;
-                static inline std::string const type = "sphere";
                 double radius;
                 std::shared_ptr<Material> material;
                 configmaps::ConfigMap configMap;
@@ -55,7 +59,7 @@ namespace envire
                     configmaps::ConfigMap config;
                     config.append(configMap);
                     config["name"] = name;
-                    config["type"] = type;
+                    config["type"] = getType();
                     config["radius"] = radius;
                     if (material != nullptr)
                         config["material"] = material->getFullConfigMap();

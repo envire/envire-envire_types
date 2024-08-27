@@ -52,8 +52,12 @@ namespace envire
                     }
                 }
 
+                std::string getType() const override
+                {
+                    return "direct_effort";
+                }
+
                 std::string name;
-                static inline std::string const type = "direct_effort";
                 configmaps::ConfigMap configMap;
 
                 double minValue, maxValue;
@@ -66,7 +70,7 @@ namespace envire
                     configmaps::ConfigMap config;
                     config.append(configMap);
                     config["name"] = name;
-                    config["type"] = type;
+                    config["type"] = getType();
                     configMap["minValue"] = minValue;
                     configMap["maxValue"] = maxValue;
                     config["maxEffort"] = maxEffort;

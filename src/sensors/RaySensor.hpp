@@ -42,6 +42,11 @@ namespace envire
                     }
                 }
 
+                std::string getType() const override
+                {
+                    return "ray";
+                }
+
                 std::string name;
                 configmaps::ConfigMap configMap;
 

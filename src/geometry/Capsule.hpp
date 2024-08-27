@@ -47,8 +47,12 @@ namespace envire
                     }
                 }
 
+                std::string getType() const override
+                {
+                    return "capsule";
+                }
+
                 std::string name;
-                static inline std::string const type = "capsule";
                 double radius;
                 double length;
                 std::shared_ptr<Material> material;
@@ -59,7 +63,7 @@ namespace envire
                     configmaps::ConfigMap config;
                     config.append(configMap);
                     config["name"] = name;
-                    config["type"] = type;
+                    config["type"] = getType();
                     config["radius"] = radius;
                     config["length"] = length;
                     if (material != nullptr)

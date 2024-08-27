@@ -25,8 +25,12 @@ namespace envire
                 this->configMap = configMap;
             }
 
+            std::string getType() const override
+            {
+                return "link";
+            }
+
             std::string name;
-            static inline std::string const type = "link";
             configmaps::ConfigMap configMap;
 
             configmaps::ConfigMap getFullConfigMap()
@@ -34,7 +38,7 @@ namespace envire
                 configmaps::ConfigMap config;
                 config.append(configMap);
                 config["name"] = name;
-                config["type"] = type;
+                config["type"] = getType();
                 return config;
             }
 

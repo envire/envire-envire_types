@@ -54,8 +54,12 @@ namespace envire
                     }
                 }
 
+                std::string getType() const override
+                {
+                    return "mesh";
+                }
+
                 std::string name;
-                static inline std::string const type = "mesh";
                 std::string filename;
                 base::Vector3d scale;
                 std::shared_ptr<Material> material;
@@ -66,7 +70,7 @@ namespace envire
                     configmaps::ConfigMap config;
                     config.append(configMap);
                     config["name"] = name;
-                    config["type"] = type;
+                    config["type"] = getType();
                     config["filename"] = filename;
                     config["scale"]["x"] = scale.x();
                     config["scale"]["y"] = scale.y();

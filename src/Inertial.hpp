@@ -40,8 +40,12 @@ namespace envire
                 this->configMap = configMap;
             }
 
+            std::string getType() const override
+            {
+                return "inertial";
+            }
+
             std::string name;
-            static inline std::string const type = "inertial";
             configmaps::ConfigMap configMap;
 
             double mass;
@@ -52,7 +56,7 @@ namespace envire
                 configmaps::ConfigMap config;
                 config.append(configMap);
                 config["name"] = name;
-                config["type"] = type;
+                config["type"] = getType();
                 config["mass"] = mass;
                 config["xx"] = xx;
                 config["xy"] = xy;

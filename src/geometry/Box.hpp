@@ -48,8 +48,12 @@ namespace envire
                     }
                 }
 
+                std::string getType() const override
+                {
+                    return "box";
+                }
+
                 std::string name;
-                static inline std::string const type = "box";
                 base::Vector3d size;
                 std::shared_ptr<Material> material;
                 configmaps::ConfigMap configMap;
@@ -59,7 +63,7 @@ namespace envire
                     configmaps::ConfigMap config;
                     config.append(configMap);
                     config["name"] = name;
-                    config["type"] = type;
+                    config["type"] = getType();
                     config["size"]["x"] = size.x();
                     config["size"]["y"] = size.y();
                     config["size"]["z"] = size.z();

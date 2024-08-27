@@ -42,8 +42,12 @@ namespace envire
                     }
                 }
 
+                std::string getType() const override
+                {
+                    return "heightfield";
+                }
+
                 std::string name;
-                static inline std::string const type = "heightfield";
                 std::shared_ptr<Material> material;
                 configmaps::ConfigMap configMap;
 
@@ -52,7 +56,7 @@ namespace envire
                     configmaps::ConfigMap config;
                     config.append(configMap);
                     config["name"] = name;
-                    config["type"] = type;
+                    config["type"] = getType();
                     if (material != nullptr)
                         config["material"] = material->getFullConfigMap();
                     return config;

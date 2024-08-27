@@ -14,9 +14,8 @@ namespace envire
     {
         namespace geometry
         {
-            class Color: public EnvireTypeBase
+            struct Color
             {
-            public:
                 Color() : r(0), g(0), b(0), a(1) {}
                 Color(configmaps::ConfigMap &configMap)
                 {
@@ -94,8 +93,12 @@ namespace envire
                     }
                 }
 
+                std::string getType() const override
+                {
+                    return "material";
+                }
+
                 std::string name;
-                static inline std::string const type = "material";
                 Color ambientColor;
                 Color diffuseColor;
                 Color specularColor;
@@ -108,7 +111,7 @@ namespace envire
                     configmaps::ConfigMap config;
                     config.append(configMap);
                     config["name"] = name;
-                    config["type"] = type;
+                    config["type"] = getType();
                     config["ambientColor"] = ambientColor.getFullConfigMap();
                     config["diffuseColor"] = diffuseColor.getFullConfigMap();
                     config["specularColor"] = specularColor.getFullConfigMap();

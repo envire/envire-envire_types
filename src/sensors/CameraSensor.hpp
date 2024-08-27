@@ -41,6 +41,11 @@ namespace envire
                     }
                 }
 
+                std::string getType() const override
+                {
+                    return "camera";
+                }
+
                 std::string name;
                 configmaps::ConfigMap configMap;
 

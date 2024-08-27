@@ -46,8 +46,12 @@ namespace envire
                     }
                 }
 
+                std::string getType() const override
+                {
+                    return "DC";
+                }
+
                 std::string name;
-                static inline std::string const type = "DC";
                 configmaps::ConfigMap configMap;
 
                 double minPosition;
@@ -60,7 +64,7 @@ namespace envire
                     configmaps::ConfigMap config;
                     config.append(configMap);
                     config["name"] = name;
-                    config["type"] = type;
+                    config["type"] = getType();
                     config["minPosition"] = minPosition;
                     config["maxPosition"] = maxPosition;
                     config["maxEffort"] = maxEffort;

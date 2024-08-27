@@ -46,8 +46,12 @@ namespace envire
                     }
                 }
 
+                std::string getType() const override
+                {
+                    return "continuous";
+                }
+
                 std::string name;
-                static inline std::string const type = "continuous";
                 configmaps::ConfigMap configMap;
 
                 base::Vector3d axis;
@@ -59,7 +63,7 @@ namespace envire
                     configmaps::ConfigMap config;
                     config.append(configMap);
                     config["name"] = name;
-                    config["type"] = type;
+                    config["type"] = getType();
                     config["axis"]["x"] = axis.x();
                     config["axis"]["y"] = axis.y();
                     config["axis"]["z"] = axis.z();

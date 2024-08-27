@@ -14,7 +14,7 @@ namespace envire
     {
         namespace sensors
         {
-            class Joint6DOFSensor: public EnvireTypeBase
+            class Joint6DOFSensor : public EnvireTypeBase
             {
             public:
                 Joint6DOFSensor() {}
@@ -36,6 +36,11 @@ namespace envire
                         LOG_ERROR_S << "The config map has no all required keys";
                         configMap.clear();
                     }
+                }
+
+                std::string getType() const override
+                {
+                    return "joint6dof";
                 }
 
                 std::string name;

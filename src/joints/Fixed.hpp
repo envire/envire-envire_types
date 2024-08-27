@@ -35,8 +35,12 @@ namespace envire
                     }
                 }
 
+                std::string getType() const override
+                {
+                    return "fixed";
+                }
+
                 std::string name;
-                static inline std::string const type = "fixed";
                 configmaps::ConfigMap configMap;
 
                 configmaps::ConfigMap getFullConfigMap()
@@ -44,7 +48,7 @@ namespace envire
                     configmaps::ConfigMap config;
                     config.append(configMap);
                     config["name"] = name;
-                    config["type"] = type;
+                    config["type"] = getType();
                     return config;
                 }
 

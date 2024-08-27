@@ -27,9 +27,13 @@ namespace envire
                 this->configMap = configMap;
             }
 
+            std::string getType() const override
+            {
+                return "world";
+            }
+
             std::string name;
             std::string prefix;
-            static inline std::string const type = "world";
             configmaps::ConfigMap configMap;
 
             configmaps::ConfigMap getFullConfigMap()
@@ -37,7 +41,7 @@ namespace envire
                 configmaps::ConfigMap config;
                 config.append(configMap);
                 config["name"] = name;
-                config["type"] = type;
+                config["type"] = getType();
                 config["prefix"] = prefix;
                 return config;
             }
