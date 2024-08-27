@@ -45,7 +45,7 @@ namespace envire
 
                 configmaps::ConfigMap configMap;
 
-                configmaps::ConfigMap getFullConfigMap()
+                configmaps::ConfigMap getFullConfigMap() const override
                 {
                     configmaps::ConfigMap config;
                     config.append(configMap);

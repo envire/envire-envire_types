@@ -50,7 +50,7 @@ namespace envire
             double mass;
             double xx,xy,xz,yy,yz,zz;
 
-            configmaps::ConfigMap getFullConfigMap()
+            configmaps::ConfigMap getFullConfigMap() const override
             {
                 configmaps::ConfigMap config;
                 config.append(configMap);

@@ -40,7 +40,7 @@ namespace envire
                 double b;
                 double a;
 
-                configmaps::ConfigMap getFullConfigMap()
+                configmaps::ConfigMap getFullConfigMap() const
                 {
                     configmaps::ConfigMap config;
                     config["r"] = r;
@@ -105,7 +105,7 @@ namespace envire
                 std::string textureFilename;
                 configmaps::ConfigMap configMap;
 
-                configmaps::ConfigMap getFullConfigMap()
+                configmaps::ConfigMap getFullConfigMap() const override
                 {
                     configmaps::ConfigMap config;
                     config.append(configMap);

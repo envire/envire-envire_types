@@ -58,7 +58,7 @@ namespace envire
                 double maxEffort;
                 double maxSpeed;
 
-                configmaps::ConfigMap getFullConfigMap()
+                configmaps::ConfigMap getFullConfigMap() const override
                 {
                     configmaps::ConfigMap config;
                     config.append(configMap);

@@ -51,7 +51,7 @@ namespace envire
                 double openingWidth;
                 double openingHeight;
 
-                configmaps::ConfigMap getFullConfigMap()
+                configmaps::ConfigMap getFullConfigMap() const override
                 {
                     configmaps::ConfigMap config;
                     config.append(configMap);
