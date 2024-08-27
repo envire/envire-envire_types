@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../EnvireTypeBase.hpp"
+
 #include <string>
 #include <base/Eigen.hpp>
 #include <base-logging/Logging.hpp>
@@ -14,8 +16,9 @@ namespace envire
     {
         namespace joints
         {
-            struct Prismatic
+            class Prismatic: public EnvireTypeBase
             {
+            public:
                 Prismatic() {}
 
                 Prismatic(configmaps::ConfigMap configMap_) : configMap(configMap_)

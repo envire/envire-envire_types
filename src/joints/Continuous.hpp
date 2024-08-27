@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../EnvireTypeBase.hpp"
+
 #include <string>
 #include <base/Eigen.hpp>
 #include <base-logging/Logging.hpp>
@@ -13,8 +15,9 @@ namespace envire
     {
         namespace joints
         {
-            struct Continuous
+            class Continuous: public EnvireTypeBase
             {
+            public:
                 Continuous() {}
 
                 Continuous(configmaps::ConfigMap configMap_) : configMap(configMap_)

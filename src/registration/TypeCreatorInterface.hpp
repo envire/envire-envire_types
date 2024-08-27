@@ -9,7 +9,8 @@ namespace envire
 {
     namespace types
     {
-        class TypeCreatorInterface {
+        class TypeCreatorInterface
+        {
             public:
                 virtual ~TypeCreatorInterface() {};
 

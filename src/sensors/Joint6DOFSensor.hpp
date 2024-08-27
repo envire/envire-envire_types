@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../EnvireTypeBase.hpp"
+
 #include <string>
 #include <configmaps/ConfigMap.hpp>
 #include <base-logging/Logging.hpp>
@@ -12,8 +14,9 @@ namespace envire
     {
         namespace sensors
         {
-            struct Joint6DOFSensor
+            class Joint6DOFSensor: public EnvireTypeBase
             {
+            public:
                 Joint6DOFSensor() {}
 
                 Joint6DOFSensor(configmaps::ConfigMap configMap_) : configMap(configMap_)

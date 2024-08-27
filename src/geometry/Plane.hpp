@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../EnvireTypeBase.hpp"
+
 #include <string>
 #include <boost/serialization/access.hpp>
 #include <base/Eigen.hpp>
@@ -12,8 +14,9 @@ namespace envire
     {
         namespace geometry
         {
-            struct Plane
+            class Plane: public EnvireTypeBase
             {
+            public:
                 Plane() : Plane(std::string(), base::Vector2d(0., 0.)) {}
                 Plane(std::string name, base::Vector2d size) : name(name), size(size) {}
                 // TODO: store other values in configMap in the configMap variable

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../EnvireTypeBase.hpp"
+
 #include <string>
 #include <boost/serialization/access.hpp>
 #include <base/Eigen.hpp>
@@ -13,8 +15,9 @@ namespace envire
     {
         namespace geometry
         {
-            struct Box
+            class Box: public EnvireTypeBase
             {
+            public:
                 Box() : Box(std::string(), base::Vector3d::Zero()) {}
                 Box(std::string name, base::Vector3d size) : name(name), size(size) {}
                 Box(configmaps::ConfigMap &configMap_) : configMap(configMap_)

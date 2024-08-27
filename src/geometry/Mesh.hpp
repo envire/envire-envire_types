@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../EnvireTypeBase.hpp"
+
 #include <string>
 #include <boost/serialization/access.hpp>
 #include <base/Eigen.hpp>
@@ -12,8 +14,9 @@ namespace envire
     {
         namespace geometry
         {
-            struct Mesh
+            class Mesh: public EnvireTypeBase
             {
+            public:
                 Mesh() : Mesh(std::string(), std::string()) {}
                 Mesh(std::string name, std::string filename) : Mesh(name, filename, base::Vector3d(1., 1., 1.)) {}
                 Mesh(std::string name, std::string filename, base::Vector3d scale) : name(name), filename(filename), scale(scale) {}

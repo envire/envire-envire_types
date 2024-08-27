@@ -1,5 +1,7 @@
 #pragma once
 
+#include "EnvireTypeBase.hpp"
+
 #include <base/Eigen.hpp>
 #include <configmaps/ConfigMap.hpp>
 #include <envire_core/plugin/Plugin.hpp>
@@ -8,8 +10,9 @@ namespace envire
 {
     namespace types
     {
-        struct World
+        class World: public EnvireTypeBase
         {
+        public:
             World() {}
             World(configmaps::ConfigMap configMap)
             {

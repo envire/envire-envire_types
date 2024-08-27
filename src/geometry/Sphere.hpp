@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../EnvireTypeBase.hpp"
+
 #include <string>
 #include <boost/serialization/access.hpp>
 #include <base-logging/Logging.hpp>
@@ -11,8 +13,9 @@ namespace envire
     {
         namespace geometry
         {
-            struct Sphere
+            class Sphere: public EnvireTypeBase
             {
+            public:
                 Sphere() : Sphere(std::string(), 0.) {}
                 Sphere(std::string name, double radius) : name(name), radius(radius) {}
                 // TODO: store other values in configMap in the configMap variable

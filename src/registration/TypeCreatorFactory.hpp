@@ -13,7 +13,8 @@ namespace envire
 {
     namespace types
     {
-        class TypeCreatorFactory {
+        class TypeCreatorFactory
+        {
             typedef std::shared_ptr<TypeCreatorInterface> CreatorPtr;
             typedef std::map<std::string, CreatorPtr> CreatorMap;
 

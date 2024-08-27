@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../EnvireTypeBase.hpp"
+
 #include <string>
 #include <boost/serialization/access.hpp>
 #include <configmaps/ConfigMap.hpp>
@@ -11,8 +13,9 @@ namespace envire
     {
         namespace joints
         {
-            struct Fixed
+            class Fixed: public EnvireTypeBase
             {
+            public:
                 Fixed() {}
 
                 Fixed(configmaps::ConfigMap configMap_) : configMap(configMap_)

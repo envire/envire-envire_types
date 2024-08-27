@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../EnvireTypeBase.hpp"
+
 #include <string>
 #include <boost/serialization/access.hpp>
 #include <base/Eigen.hpp>
@@ -13,8 +15,9 @@ namespace envire
     {
         namespace geometry
         {
-            struct Heightfield
+            class Heightfield: public EnvireTypeBase
             {
+            public:
                 Heightfield() : Heightfield(std::string()) {}
                 Heightfield(std::string name) : name(name) {}
                 Heightfield(configmaps::ConfigMap &configMap_) : configMap(configMap_)

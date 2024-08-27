@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../EnvireTypeBase.hpp"
+
 #include <string>
 #include <boost/serialization/access.hpp>
 #include <base-logging/Logging.hpp>
@@ -11,8 +13,9 @@ namespace envire
     {
         namespace geometry
         {
-            struct Cylinder
+            class Cylinder: public EnvireTypeBase
             {
+            public:
                 Cylinder() : Cylinder(std::string(), 0., 0.) {}
                 Cylinder(std::string name, double radius, double length) : name(name), radius(radius), length(length) {}
                 Cylinder(configmaps::ConfigMap &configMap_) : configMap(configMap_)

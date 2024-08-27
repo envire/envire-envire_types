@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../EnvireTypeBase.hpp"
+
 #include <string>
 #include <base/Eigen.hpp>
 #include <base-logging/Logging.hpp>
@@ -12,8 +14,9 @@ namespace envire
     {
         namespace motors
         {
-            struct PID
+            class PID: public EnvireTypeBase
             {
+            public:
                 PID() {}
                 PID(configmaps::ConfigMap configMap_) : configMap(configMap_)
                 {

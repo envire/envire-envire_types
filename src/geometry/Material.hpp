@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../EnvireTypeBase.hpp"
+
 #include <string>
 #include <boost/serialization/access.hpp>
 #include <base/Eigen.hpp>
@@ -12,8 +14,9 @@ namespace envire
     {
         namespace geometry
         {
-            struct Color
+            class Color: public EnvireTypeBase
             {
+            public:
                 Color() : r(0), g(0), b(0), a(1) {}
                 Color(configmaps::ConfigMap &configMap)
                 {
@@ -49,8 +52,9 @@ namespace envire
                 }
             };
 
-            struct Material
+            class Material: public EnvireTypeBase
             {
+            public:
                 Material() {}
                 Material(configmaps::ConfigMap &configMap_) : configMap(configMap_)
                 {

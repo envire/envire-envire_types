@@ -1,5 +1,7 @@
 #pragma once
 
+#include "EnvireTypeBase.hpp"
+
 #include <base/Eigen.hpp>
 #include <configmaps/ConfigMap.hpp>
 #include <envire_core/plugin/Plugin.hpp>
@@ -9,8 +11,9 @@ namespace envire
 {
     namespace types
     {
-        struct Inertial
+        class Inertial: public EnvireTypeBase
         {
+        public:
             Inertial() {}
             Inertial(configmaps::ConfigMap configMap)
             {

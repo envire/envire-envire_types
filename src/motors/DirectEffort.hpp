@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../EnvireTypeBase.hpp"
+
 #include <string>
 #include <base/Eigen.hpp>
 #include <base-logging/Logging.hpp>
@@ -12,8 +14,9 @@ namespace envire
     {
         namespace motors
         {
-            struct DirectEffort
+            class DirectEffort: public EnvireTypeBase
             {
+            public:
                 DirectEffort() {}
                 DirectEffort(configmaps::ConfigMap configMap_) : configMap(configMap_)
                 {

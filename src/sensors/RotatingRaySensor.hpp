@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../EnvireTypeBase.hpp"
+
 #include <string>
 #include <configmaps/ConfigMap.hpp>
 #include <base-logging/Logging.hpp>
@@ -9,9 +11,11 @@ namespace envire
 {
     namespace types
     {
-        namespace sensors {
-            struct RotatingRaySensor
+        namespace sensors
+        {
+            class RotatingRaySensor: public EnvireTypeBase
             {
+            public:
                 RotatingRaySensor() {}
 
                 RotatingRaySensor(configmaps::ConfigMap configMap_) : configMap(configMap_)
