@@ -15,7 +15,8 @@ namespace envire
             struct Color
             {
                 Color() : r(0), g(0), b(0), a(1) {}
-                Color(configmaps::ConfigMap &configMap) {
+                Color(configmaps::ConfigMap &configMap)
+                {
                     if (configMap.hasKey("r") && configMap.hasKey("g") && configMap.hasKey("b"))
                     {
                         r = configMap["r"];
@@ -37,7 +38,8 @@ namespace envire
                 double b;
                 double a;
 
-                configmaps::ConfigMap getFullConfigMap() {
+                configmaps::ConfigMap getFullConfigMap()
+                {
                     configmaps::ConfigMap config;
                     config["r"] = r;
                     config["g"] = g;
@@ -97,7 +99,8 @@ namespace envire
                 std::string textureFilename;
                 configmaps::ConfigMap configMap;
 
-                configmaps::ConfigMap getFullConfigMap() {
+                configmaps::ConfigMap getFullConfigMap()
+                {
                     configmaps::ConfigMap config;
                     config.append(configMap);
                     config["name"] = name;

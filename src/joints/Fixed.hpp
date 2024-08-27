@@ -15,7 +15,8 @@ namespace envire
             {
                 Fixed() {}
 
-                Fixed(configmaps::ConfigMap configMap_) : configMap(configMap_) {
+                Fixed(configmaps::ConfigMap configMap_) : configMap(configMap_)
+                {
                     if (configMap.hasKey("name"))
                     {
                         name = configMap["name"].toString();
@@ -35,7 +36,8 @@ namespace envire
                 static inline std::string const type = "fixed";
                 configmaps::ConfigMap configMap;
 
-                configmaps::ConfigMap getFullConfigMap() {
+                configmaps::ConfigMap getFullConfigMap()
+                {
                     configmaps::ConfigMap config;
                     config.append(configMap);
                     config["name"] = name;

@@ -7,7 +7,6 @@
 #include <configmaps/ConfigMap.hpp>
 
 // TODO: motors has maxSpeed and joint maxVelocity, find one config name
-// TODO: add shemas
 namespace envire
 {
     namespace types
@@ -52,7 +51,8 @@ namespace envire
                 double maxEffort;
                 double maxVelocity;
 
-                configmaps::ConfigMap getFullConfigMap() {
+                configmaps::ConfigMap getFullConfigMap()
+                {
                     configmaps::ConfigMap config;
                     config.append(configMap);
                     config["name"] = name;

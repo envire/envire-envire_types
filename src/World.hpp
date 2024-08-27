@@ -11,7 +11,8 @@ namespace envire
         struct World
         {
             World() {}
-            World(configmaps::ConfigMap configMap) {
+            World(configmaps::ConfigMap configMap)
+            {
                 name = configMap["name"].toString();
                 prefix = configMap["prefix"].toString();
 
@@ -28,7 +29,8 @@ namespace envire
             static inline std::string const type = "world";
             configmaps::ConfigMap configMap;
 
-            configmaps::ConfigMap getFullConfigMap() {
+            configmaps::ConfigMap getFullConfigMap()
+            {
                 configmaps::ConfigMap config;
                 config.append(configMap);
                 config["name"] = name;

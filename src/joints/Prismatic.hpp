@@ -52,7 +52,8 @@ namespace envire
                 double maxEffort;
                 double maxVelocity;
 
-                configmaps::ConfigMap getFullConfigMap() {
+                configmaps::ConfigMap getFullConfigMap()
+                {
                     configmaps::ConfigMap config;
                     config.append(configMap);
                     config["name"] = name;

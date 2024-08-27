@@ -5,7 +5,6 @@
 #include <base-logging/Logging.hpp>
 #include <configmaps/ConfigMap.hpp>
 
-// TODO: add constructor with configmap
 
 namespace envire
 {
@@ -62,7 +61,8 @@ namespace envire
                 double maxEffort;
                 double maxSpeed;
 
-                configmaps::ConfigMap getFullConfigMap() {
+                configmaps::ConfigMap getFullConfigMap()
+                {
                     configmaps::ConfigMap config;
                     config.append(configMap);
                     config["name"] = name;

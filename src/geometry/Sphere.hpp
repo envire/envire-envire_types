@@ -47,7 +47,8 @@ namespace envire
                 std::shared_ptr<Material> material;
                 configmaps::ConfigMap configMap;
 
-                configmaps::ConfigMap getFullConfigMap() {
+                configmaps::ConfigMap getFullConfigMap()
+                {
                     configmaps::ConfigMap config;
                     config.append(configMap);
                     config["name"] = name;

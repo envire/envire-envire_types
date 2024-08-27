@@ -11,7 +11,8 @@ namespace envire
         struct Link
         {
             Link() {}
-            Link(configmaps::ConfigMap configMap) {
+            Link(configmaps::ConfigMap configMap)
+            {
                 name = configMap["name"].toString();
 
                 // we avoid the value dublication
@@ -25,7 +26,8 @@ namespace envire
             static inline std::string const type = "link";
             configmaps::ConfigMap configMap;
 
-            configmaps::ConfigMap getFullConfigMap() {
+            configmaps::ConfigMap getFullConfigMap()
+            {
                 configmaps::ConfigMap config;
                 config.append(configMap);
                 config["name"] = name;

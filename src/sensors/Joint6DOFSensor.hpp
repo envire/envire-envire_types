@@ -5,7 +5,6 @@
 #include <base-logging/Logging.hpp>
 #include <boost/serialization/access.hpp>
 
-// TODO: add constructor with configmap
 
 namespace envire
 {
@@ -39,7 +38,8 @@ namespace envire
                 std::string name;
                 configmaps::ConfigMap configMap;
 
-                configmaps::ConfigMap getFullConfigMap() {
+                configmaps::ConfigMap getFullConfigMap()
+                {
                     configmaps::ConfigMap config;
                     config.append(configMap);
                     config["name"] = name;

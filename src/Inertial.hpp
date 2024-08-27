@@ -4,7 +4,6 @@
 #include <configmaps/ConfigMap.hpp>
 #include <envire_core/plugin/Plugin.hpp>
 
-// TODO: add constructor with configmap
 
 namespace envire
 {
@@ -13,7 +12,8 @@ namespace envire
         struct Inertial
         {
             Inertial() {}
-            Inertial(configmaps::ConfigMap configMap) {
+            Inertial(configmaps::ConfigMap configMap)
+            {
                 name = configMap["name"].toString();
                 mass = configMap["mass"];
                 xx = configMap["xx"];
@@ -44,7 +44,8 @@ namespace envire
             double mass;
             double xx,xy,xz,yy,yz,zz;
 
-            configmaps::ConfigMap getFullConfigMap() {
+            configmaps::ConfigMap getFullConfigMap()
+            {
                 configmaps::ConfigMap config;
                 config.append(configMap);
                 config["name"] = name;
