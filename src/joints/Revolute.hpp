@@ -55,6 +55,10 @@ namespace envire
                 static inline std::string const type = "revolute";
                 configmaps::ConfigMap configMap;
 
+                const base::Vector3d& getAxis() const
+                {
+                    return axis;
+                }
                 base::Vector3d axis;
                 double minPosition;
                 double maxPosition;
