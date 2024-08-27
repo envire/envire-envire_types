@@ -55,41 +55,41 @@ namespace envire
             {
             public:
                 Material() {}
-                Material(configmaps::ConfigMap &configMap_) : EnvireTypeBase(configMap_)
+                Material(configmaps::ConfigMap &configMap) : EnvireTypeBase(configMap)
                 {
-                    if (configMap.hasKey("name"))
+                    if (configMap_.hasKey("name"))
                     {
-                        name_ = configMap["name"].toString();
-                        configMap.erase("name");
+                        name_ = configMap_["name"].toString();
+                        configMap_.erase("name");
                     }
-                    if (configMap.hasKey("ambientColor"))
+                    if (configMap_.hasKey("ambientColor"))
                     {
-                        ambientColor = Color(configMap["ambientColor"]);
-                        configMap.erase("ambientColor");
-                    }
-
-                    if (configMap.hasKey("diffuseColor"))
-                    {
-                        diffuseColor = Color(configMap["diffuseColor"]);
-                        configMap.erase("diffuseColor");
+                        ambientColor = Color(configMap_["ambientColor"]);
+                        configMap_.erase("ambientColor");
                     }
 
-                    if (configMap.hasKey("specularColor"))
+                    if (configMap_.hasKey("diffuseColor"))
                     {
-                        specularColor = Color(configMap["specularColor"]);
-                        configMap.erase("specularColor");
+                        diffuseColor = Color(configMap_["diffuseColor"]);
+                        configMap_.erase("diffuseColor");
                     }
 
-                    if (configMap.hasKey("shininess"))
+                    if (configMap_.hasKey("specularColor"))
                     {
-                        shininess = configMap["shininess"];
-                        configMap.erase("shininess");
+                        specularColor = Color(configMap_["specularColor"]);
+                        configMap_.erase("specularColor");
                     }
 
-                    if (configMap.hasKey("textureFilename"))
+                    if (configMap_.hasKey("shininess"))
                     {
-                        textureFilename = configMap["textureFilename"].toString();
-                        configMap.erase("textureFilename");
+                        shininess = configMap_["shininess"];
+                        configMap_.erase("shininess");
+                    }
+
+                    if (configMap_.hasKey("textureFilename"))
+                    {
+                        textureFilename = configMap_["textureFilename"].toString();
+                        configMap_.erase("textureFilename");
                     }
                 }
 
@@ -107,7 +107,7 @@ namespace envire
                 configmaps::ConfigMap getFullConfigMap() const override
                 {
                     configmaps::ConfigMap config;
-                    config.append(configMap);
+                    config.append(configMap_);
                     config["name"] = getName();
                     config["type"] = getType();
                     config["ambientColor"] = ambientColor.getFullConfigMap();

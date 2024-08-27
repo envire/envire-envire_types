@@ -14,15 +14,15 @@ namespace envire
         {
         public:
             World() {}
-            World(configmaps::ConfigMap configMap_) : EnvireTypeBase(configMap_)
+            World(configmaps::ConfigMap configMap) : EnvireTypeBase(configMap)
             {
-                name_ = configMap["name"].toString();
-                prefix = configMap["prefix"].toString();
+                name_ = configMap_["name"].toString();
+                prefix = configMap_["prefix"].toString();
 
                 // we avoid the value dublication
                 // delete the keys, since we stored their values as class parameters
-                configMap.erase("name");
-                configMap.erase("prefix");
+                configMap_.erase("name");
+                configMap_.erase("prefix");
             }
 
             std::string getType() const override
@@ -35,7 +35,7 @@ namespace envire
             configmaps::ConfigMap getFullConfigMap() const override
             {
                 configmaps::ConfigMap config;
-                config.append(configMap);
+                config.append(configMap_);
                 config["name"] = getName();
                 config["type"] = getType();
                 config["prefix"] = prefix;

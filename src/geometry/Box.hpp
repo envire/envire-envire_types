@@ -20,31 +20,31 @@ namespace envire
             public:
                 Box() : Box(std::string(), base::Vector3d::Zero()) {}
                 Box(std::string name, base::Vector3d size) : EnvireTypeBase(name), size(size) {}
-                Box(configmaps::ConfigMap &configMap_) : EnvireTypeBase(configMap_)
+                Box(configmaps::ConfigMap &configMap) : EnvireTypeBase(configMap)
                 {
-                    if (configMap.hasKey("name") && configMap.hasKey("size")
-                        && configMap["size"].hasKey("x") && configMap["size"].hasKey("y") && configMap["size"].hasKey("z"))
+                    if (configMap_.hasKey("name") && configMap_.hasKey("size")
+                        && configMap_["size"].hasKey("x") && configMap_["size"].hasKey("y") && configMap_["size"].hasKey("z"))
                     {
-                        name_ = configMap["name"].toString();
-                        size.x() = configMap["size"]["x"];
-                        size.y() = configMap["size"]["y"];
-                        size.z() = configMap["size"]["z"];
+                        name_ = configMap_["name"].toString();
+                        size.x() = configMap_["size"]["x"];
+                        size.y() = configMap_["size"]["y"];
+                        size.z() = configMap_["size"]["z"];
 
-                        // store all additional values in the configMap parameter
-                        configMap.erase("name");
-                        configMap.erase("size");
+                        // store all additional values in the configMap_ parameter
+                        configMap_.erase("name");
+                        configMap_.erase("size");
 
-                        if (configMap.hasKey("material"))
+                        if (configMap_.hasKey("material"))
                         {
-                            material = std::make_shared<Material>(configMap["material"]);
-                            configMap.erase("material");
+                            material = std::make_shared<Material>(configMap_["material"]);
+                            configMap_.erase("material");
                         }
                     }
                     else
                     {
                         LOG_ERROR_S << "The config map has no all required keys";
                         size = base::Vector3d::Zero();
-                        configMap.clear();
+                        configMap_.clear();
                     }
                 }
 
@@ -59,7 +59,7 @@ namespace envire
                 configmaps::ConfigMap getFullConfigMap() const override
                 {
                     configmaps::ConfigMap config;
-                    config.append(configMap);
+                    config.append(configMap_);
                     config["name"] = getName();
                     config["type"] = getType();
                     config["size"]["x"] = size.x();

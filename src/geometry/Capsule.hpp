@@ -19,23 +19,23 @@ namespace envire
             public:
                 Capsule() : Capsule(std::string(), 0., 0.) {}
                 Capsule(std::string name, double radius, double length) : EnvireTypeBase(name), radius(radius), length(length) {}
-                Capsule(configmaps::ConfigMap &configMap_) : EnvireTypeBase(configMap_)
+                Capsule(configmaps::ConfigMap &configMap) : EnvireTypeBase(configMap)
                 {
-                    if (configMap.hasKey("name") && configMap.hasKey("radius") && configMap.hasKey("length"))
+                    if (configMap_.hasKey("name") && configMap_.hasKey("radius") && configMap_.hasKey("length"))
                     {
-                        name_ = configMap["name"].toString();
-                        radius = configMap["radius"];
-                        length = configMap["length"];
+                        name_ = configMap_["name"].toString();
+                        radius = configMap_["radius"];
+                        length = configMap_["length"];
 
-                        // store all additional values in the configMap parameter
-                        configMap.erase("name");
-                        configMap.erase("radius");
-                        configMap.erase("length");
+                        // store all additional values in the configMap_ parameter
+                        configMap_.erase("name");
+                        configMap_.erase("radius");
+                        configMap_.erase("length");
 
-                        if (configMap.hasKey("material"))
+                        if (configMap_.hasKey("material"))
                         {
-                            material = std::make_shared<Material>(configMap["material"]);
-                            configMap.erase("material");
+                            material = std::make_shared<Material>(configMap_["material"]);
+                            configMap_.erase("material");
                         }
                     }
                     else
@@ -43,7 +43,7 @@ namespace envire
                         LOG_ERROR_S << "The config map has no all required keys";
                         radius = 0.;
                         length = 0.;
-                        configMap.clear();
+                        configMap_.clear();
                     }
                 }
 
@@ -59,7 +59,7 @@ namespace envire
                 configmaps::ConfigMap getFullConfigMap() const override
                 {
                     configmaps::ConfigMap config;
-                    config.append(configMap);
+                    config.append(configMap_);
                     config["name"] = getName();
                     config["type"] = getType();
                     config["radius"] = radius;

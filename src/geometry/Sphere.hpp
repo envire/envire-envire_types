@@ -18,29 +18,29 @@ namespace envire
             public:
                 Sphere() : Sphere(std::string(), 0.) {}
                 Sphere(std::string name, double radius) : EnvireTypeBase(name), radius(radius) {}
-                // TODO: store other values in configMap in the configMap variable
-                Sphere(configmaps::ConfigMap &configMap_) : EnvireTypeBase(configMap_)
+                // TODO: store other values in configMap_ in the configMap_ variable
+                Sphere(configmaps::ConfigMap &configMap) : EnvireTypeBase(configMap)
                 {
-                    if (configMap.hasKey("name") && configMap.hasKey("radius"))
+                    if (configMap_.hasKey("name") && configMap_.hasKey("radius"))
                     {
-                        name_ = configMap["name"].toString();
-                        radius = configMap["radius"];
+                        name_ = configMap_["name"].toString();
+                        radius = configMap_["radius"];
 
-                        // store all additional values in the configMap parameter
-                        configMap.erase("name");
-                        configMap.erase("radius");
+                        // store all additional values in the configMap_ parameter
+                        configMap_.erase("name");
+                        configMap_.erase("radius");
 
-                        if (configMap.hasKey("material"))
+                        if (configMap_.hasKey("material"))
                         {
-                            material = std::make_shared<Material>(configMap["material"]);
-                            configMap.erase("material");
+                            material = std::make_shared<Material>(configMap_["material"]);
+                            configMap_.erase("material");
                         }
                     }
                     else
                     {
                         LOG_ERROR_S << "The config map has no all required keys";
                         radius = 0.;
-                        configMap.clear();
+                        configMap_.clear();
                     }
                 }
 
@@ -55,7 +55,7 @@ namespace envire
                 configmaps::ConfigMap getFullConfigMap() const override
                 {
                     configmaps::ConfigMap config;
-                    config.append(configMap);
+                    config.append(configMap_);
                     config["name"] = getName();
                     config["type"] = getType();
                     config["radius"] = radius;

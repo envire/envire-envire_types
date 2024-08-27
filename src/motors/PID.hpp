@@ -18,37 +18,37 @@ namespace envire
             {
             public:
                 PID() {}
-                PID(configmaps::ConfigMap configMap_) : EnvireTypeBase(configMap_)
+                PID(configmaps::ConfigMap configMap) : EnvireTypeBase(configMap)
                 {
-                    if (configMap.hasKey("name")
-                        && configMap.hasKey("p") && configMap.hasKey("i") && configMap.hasKey("d")
-                        && configMap.hasKey("minValue") && configMap.hasKey("maxValue")
-                        && configMap.hasKey("maxEffort") && configMap.hasKey("maxSpeed"))
+                    if (configMap_.hasKey("name")
+                        && configMap_.hasKey("p") && configMap_.hasKey("i") && configMap_.hasKey("d")
+                        && configMap_.hasKey("minValue") && configMap_.hasKey("maxValue")
+                        && configMap_.hasKey("maxEffort") && configMap_.hasKey("maxSpeed"))
                     {
-                        name_ = configMap["name"].toString();
-                        p = configMap["p"];
-                        i = configMap["i"];
-                        d = configMap["d"];
-                        minPosition = configMap["minValue"];
-                        maxPosition = configMap["maxValue"];
-                        maxEffort = configMap["maxEffort"];
-                        maxSpeed = configMap["maxSpeed"];
+                        name_ = configMap_["name"].toString();
+                        p = configMap_["p"];
+                        i = configMap_["i"];
+                        d = configMap_["d"];
+                        minPosition = configMap_["minValue"];
+                        maxPosition = configMap_["maxValue"];
+                        maxEffort = configMap_["maxEffort"];
+                        maxSpeed = configMap_["maxSpeed"];
 
                         // we avoid the value dublication
                         // delete the keys, since we stored their values as class parameters
-                        configMap.erase("name");
-                        configMap.erase("p");
-                        configMap.erase("i");
-                        configMap.erase("d");
-                        configMap.erase("minValue");
-                        configMap.erase("maxValue");
-                        configMap.erase("maxEffort");
-                        configMap.erase("maxSpeed");
+                        configMap_.erase("name");
+                        configMap_.erase("p");
+                        configMap_.erase("i");
+                        configMap_.erase("d");
+                        configMap_.erase("minValue");
+                        configMap_.erase("maxValue");
+                        configMap_.erase("maxEffort");
+                        configMap_.erase("maxSpeed");
                     }
                     else
                     {
                         LOG_ERROR_S << "The config map has no all required keys";
-                        configMap.clear();
+                        configMap_.clear();
                     }
                 }
 
@@ -68,7 +68,7 @@ namespace envire
                 configmaps::ConfigMap getFullConfigMap() const override
                 {
                     configmaps::ConfigMap config;
-                    config.append(configMap);
+                    config.append(configMap_);
                     config["name"] = getName();
                     config["type"] = getType();
                     config["p"] = p;

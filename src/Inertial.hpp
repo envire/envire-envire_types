@@ -15,27 +15,27 @@ namespace envire
         {
         public:
             Inertial() {}
-            Inertial(configmaps::ConfigMap configMap_) : EnvireTypeBase(configMap_)
+            Inertial(configmaps::ConfigMap configMap) : EnvireTypeBase(configMap)
             {
-                name_ = configMap["name"].toString();
-                mass = configMap["mass"];
-                xx = configMap["xx"];
-                xy = configMap["xy"];
-                xz = configMap["xz"];
-                yy = configMap["yy"];
-                yz = configMap["yz"];
-                zz = configMap["zz"];
+                name_ = configMap_["name"].toString();
+                mass = configMap_["mass"];
+                xx = configMap_["xx"];
+                xy = configMap_["xy"];
+                xz = configMap_["xz"];
+                yy = configMap_["yy"];
+                yz = configMap_["yz"];
+                zz = configMap_["zz"];
 
                 // we avoid the value dublication
                 // delete the keys, since we stored their values as class parameters
-                configMap.erase("name");
-                configMap.erase("mass");
-                configMap.erase("xx");
-                configMap.erase("xy");
-                configMap.erase("xz");
-                configMap.erase("yy");
-                configMap.erase("yz");
-                configMap.erase("zz");
+                configMap_.erase("name");
+                configMap_.erase("mass");
+                configMap_.erase("xx");
+                configMap_.erase("xy");
+                configMap_.erase("xz");
+                configMap_.erase("yy");
+                configMap_.erase("yz");
+                configMap_.erase("zz");
             }
 
             std::string getType() const override
@@ -49,7 +49,7 @@ namespace envire
             configmaps::ConfigMap getFullConfigMap() const override
             {
                 configmaps::ConfigMap config;
-                config.append(configMap);
+                config.append(configMap_);
                 config["name"] = getName();
                 config["type"] = getType();
                 config["mass"] = mass;

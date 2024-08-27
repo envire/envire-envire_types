@@ -19,25 +19,25 @@ namespace envire
             public:
                 CameraSensor() {}
 
-                CameraSensor(configmaps::ConfigMap configMap_) : EnvireTypeBase(configMap_)
+                CameraSensor(configmaps::ConfigMap configMap) : EnvireTypeBase(configMap)
                 {
-                    if (configMap.hasKey("name")
-                        && configMap.hasKey("opening_width") && configMap.hasKey("opening_height"))
+                    if (configMap_.hasKey("name")
+                        && configMap_.hasKey("opening_width") && configMap_.hasKey("opening_height"))
                     {
-                        name_ = configMap["name"].toString();
-                        openingWidth = configMap["opening_width"];
-                        openingHeight = configMap["opening_height"];
+                        name_ = configMap_["name"].toString();
+                        openingWidth = configMap_["opening_width"];
+                        openingHeight = configMap_["opening_height"];
 
                         // we avoid the value dublication
                         // delete the keys, since we stored their values as class parameters
-                        configMap.erase("name");
-                        configMap.erase("opening_width");
-                        configMap.erase("opening_height");
+                        configMap_.erase("name");
+                        configMap_.erase("opening_width");
+                        configMap_.erase("opening_height");
                     }
                     else
                     {
                         LOG_ERROR_S << "The config map has no all required keys";
-                        configMap.clear();
+                        configMap_.clear();
                     }
                 }
 
@@ -52,7 +52,7 @@ namespace envire
                 configmaps::ConfigMap getFullConfigMap() const override
                 {
                     configmaps::ConfigMap config;
-                    config.append(configMap);
+                    config.append(configMap_);
                     config["name"] = getName();
                     config["openingWidth"] = openingWidth;
                     config["openingHeight"] = openingHeight;

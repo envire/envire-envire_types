@@ -21,29 +21,29 @@ namespace envire
             public:
                 Prismatic() {}
 
-                Prismatic(configmaps::ConfigMap configMap_) : EnvireTypeBase(configMap_)
+                Prismatic(configmaps::ConfigMap configMap) : EnvireTypeBase(configMap)
                 {
-                    if (configMap.hasKey("name") && configMap.hasKey("axis")
-                        && configMap["axis"].hasKey("x") && configMap["axis"].hasKey("y") && configMap["axis"].hasKey("z")
-                        && configMap.hasKey("maxEffort") && configMap.hasKey("maxVelocity"))
+                    if (configMap_.hasKey("name") && configMap_.hasKey("axis")
+                        && configMap_["axis"].hasKey("x") && configMap_["axis"].hasKey("y") && configMap_["axis"].hasKey("z")
+                        && configMap_.hasKey("maxEffort") && configMap_.hasKey("maxVelocity"))
                     {
-                        name_ = configMap["name"].toString();
-                        axis = base::Vector3d(configMap["axis"]["x"], configMap["axis"]["y"], configMap["axis"]["z"]);
-                        maxEffort = configMap["maxEffort"];
-                        maxVelocity = configMap["maxVelocity"];
+                        name_ = configMap_["name"].toString();
+                        axis = base::Vector3d(configMap_["axis"]["x"], configMap_["axis"]["y"], configMap_["axis"]["z"]);
+                        maxEffort = configMap_["maxEffort"];
+                        maxVelocity = configMap_["maxVelocity"];
 
                         // we avoid the value dublication
                         // delete the keys, since we stored their values as class parameters
-                        configMap.erase("name");
-                        configMap.erase("axis");
-                        configMap.erase("maxEffort");
-                        configMap.erase("maxVelocity");
+                        configMap_.erase("name");
+                        configMap_.erase("axis");
+                        configMap_.erase("maxEffort");
+                        configMap_.erase("maxVelocity");
                     }
                     else
                     {
                         LOG_ERROR_S << "The config map has no all required keys";
                         axis = base::Vector3d::Zero();
-                        configMap.clear();
+                        configMap_.clear();
                     }
                 }
 
@@ -59,7 +59,7 @@ namespace envire
                 configmaps::ConfigMap getFullConfigMap() const override
                 {
                     configmaps::ConfigMap config;
-                    config.append(configMap);
+                    config.append(configMap_);
                     config["name"] = getName();
                     config["type"] = getType();
                     config["axis"]["x"] = axis.x();

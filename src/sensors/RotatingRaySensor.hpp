@@ -18,20 +18,20 @@ namespace envire
             public:
                 RotatingRaySensor() {}
 
-                RotatingRaySensor(configmaps::ConfigMap configMap_) : EnvireTypeBase(configMap_)
+                RotatingRaySensor(configmaps::ConfigMap configMap) : EnvireTypeBase(configMap)
                 {
-                    if (configMap.hasKey("name"))
+                    if (configMap_.hasKey("name"))
                     {
-                        name_ = configMap["name"].toString();
+                        name_ = configMap_["name"].toString();
 
                         // we avoid the value dublication
                         // delete the keys, since we stored their values as class parameters
-                        configMap.erase("name");
+                        configMap_.erase("name");
                     }
                     else
                     {
                         LOG_ERROR_S << "The config map has no all required keys";
-                        configMap.clear();
+                        configMap_.clear();
                     }
                 }
 
@@ -43,7 +43,7 @@ namespace envire
                 configmaps::ConfigMap getFullConfigMap() const override
                 {
                     configmaps::ConfigMap config;
-                    config.append(configMap);
+                    config.append(configMap_);
                     config["name"] = getName();
                     return config;
                 }

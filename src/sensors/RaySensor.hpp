@@ -19,26 +19,26 @@ namespace envire
             public:
                 RaySensor() {}
 
-                RaySensor(configmaps::ConfigMap configMap_) : EnvireTypeBase(configMap_)
+                RaySensor(configmaps::ConfigMap configMap) : EnvireTypeBase(configMap)
                 {
-                    if (configMap.hasKey("name")
-                        && configMap.hasKey("max_distance")
-                        && configMap.hasKey("opening_width"))
+                    if (configMap_.hasKey("name")
+                        && configMap_.hasKey("max_distance")
+                        && configMap_.hasKey("opening_width"))
                     {
-                        name_ = configMap["name"].toString();
-                        maxDistance = configMap["max_distance"];
-                        openingWidth = configMap["opening_width"];
+                        name_ = configMap_["name"].toString();
+                        maxDistance = configMap_["max_distance"];
+                        openingWidth = configMap_["opening_width"];
 
                         // we avoid the value dublication
                         // delete the keys, since we stored their values as class parameters
-                        configMap.erase("name");
-                        configMap.erase("max_distance");
-                        configMap.erase("opening_width");
+                        configMap_.erase("name");
+                        configMap_.erase("max_distance");
+                        configMap_.erase("opening_width");
                     }
                     else
                     {
                         LOG_ERROR_S << "The config map has no all required keys";
-                        configMap.clear();
+                        configMap_.clear();
                     }
                 }
 
@@ -53,7 +53,7 @@ namespace envire
                 configmaps::ConfigMap getFullConfigMap() const override
                 {
                     configmaps::ConfigMap config;
-                    config.append(configMap);
+                    config.append(configMap_);
                     config["name"] = getName();
                     config["max_distance"] = maxDistance;
                     config["opening_width"] = openingWidth;

@@ -13,7 +13,7 @@ namespace envire
         public:
             EnvireTypeBase() : name_{"NOT SET"} {}
             EnvireTypeBase(const std::string& name) : name_{name} {}
-            EnvireTypeBase(const configmaps::ConfigMap& configMap_) : configMap{configMap_} {}
+            EnvireTypeBase(const configmaps::ConfigMap& configMap) : configMap_{configMap} {}
             virtual ~EnvireTypeBase() = default;
 
 
@@ -26,7 +26,7 @@ namespace envire
             }
 
         protected:
-            configmaps::ConfigMap configMap;
+            configmaps::ConfigMap configMap_;
             std::string name_;
         };
     }

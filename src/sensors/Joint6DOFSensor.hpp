@@ -19,22 +19,22 @@ namespace envire
             public:
                 Joint6DOFSensor() {}
 
-                Joint6DOFSensor(configmaps::ConfigMap configMap_) : EnvireTypeBase(configMap_)
+                Joint6DOFSensor(configmaps::ConfigMap configMap) : EnvireTypeBase(configMap)
                 {
-                    if (configMap.hasKey("name")
-                        && configMap.hasKey("link")
-                        && configMap.hasKey("joint"))
+                    if (configMap_.hasKey("name")
+                        && configMap_.hasKey("link")
+                        && configMap_.hasKey("joint"))
                     {
-                        name_ = configMap["name"].toString();
+                        name_ = configMap_["name"].toString();
 
                         // we avoid the value dublication
                         // delete the keys, since we stored their values as class parameters
-                        configMap.erase("name");
+                        configMap_.erase("name");
                     }
                     else
                     {
                         LOG_ERROR_S << "The config map has no all required keys";
-                        configMap.clear();
+                        configMap_.clear();
                     }
                 }
 
@@ -46,7 +46,7 @@ namespace envire
                 configmaps::ConfigMap getFullConfigMap() const override
                 {
                     configmaps::ConfigMap config;
-                    config.append(configMap);
+                    config.append(configMap_);
                     config["name"] = getName();
                     return config;
                 }

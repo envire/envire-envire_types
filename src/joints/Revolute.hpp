@@ -19,34 +19,34 @@ namespace envire
             public:
                 Revolute() {}
 
-                Revolute(configmaps::ConfigMap configMap_) : EnvireTypeBase(configMap_)
+                Revolute(configmaps::ConfigMap configMap) : EnvireTypeBase(configMap)
                 {
-                    if (configMap.hasKey("name") && configMap.hasKey("axis")
-                        && configMap["axis"].hasKey("x") && configMap["axis"].hasKey("y") && configMap["axis"].hasKey("z")
-                        && configMap.hasKey("minPosition") && configMap.hasKey("maxPosition")
-                        && configMap.hasKey("maxEffort") && configMap.hasKey("maxVelocity"))
+                    if (configMap_.hasKey("name") && configMap_.hasKey("axis")
+                        && configMap_["axis"].hasKey("x") && configMap_["axis"].hasKey("y") && configMap_["axis"].hasKey("z")
+                        && configMap_.hasKey("minPosition") && configMap_.hasKey("maxPosition")
+                        && configMap_.hasKey("maxEffort") && configMap_.hasKey("maxVelocity"))
                     {
-                        name_ = configMap["name"].toString();
-                        axis = base::Vector3d(configMap["axis"]["x"], configMap["axis"]["y"], configMap["axis"]["z"]);
-                        minPosition = configMap["minPosition"];
-                        maxPosition = configMap["maxPosition"];
-                        maxEffort = configMap["maxEffort"];
-                        maxVelocity = configMap["maxVelocity"];
+                        name_ = configMap_["name"].toString();
+                        axis = base::Vector3d(configMap_["axis"]["x"], configMap_["axis"]["y"], configMap_["axis"]["z"]);
+                        minPosition = configMap_["minPosition"];
+                        maxPosition = configMap_["maxPosition"];
+                        maxEffort = configMap_["maxEffort"];
+                        maxVelocity = configMap_["maxVelocity"];
 
                         // we avoid the value dublication
                         // delete the keys, since we stored their values as class parameters
-                        configMap.erase("name");
-                        configMap.erase("axis");
-                        configMap.erase("minPosition");
-                        configMap.erase("maxPosition");
-                        configMap.erase("maxEffort");
-                        configMap.erase("maxVelocity");
+                        configMap_.erase("name");
+                        configMap_.erase("axis");
+                        configMap_.erase("minPosition");
+                        configMap_.erase("maxPosition");
+                        configMap_.erase("maxEffort");
+                        configMap_.erase("maxVelocity");
                     }
                     else
                     {
                         LOG_ERROR_S << "The config map has no all required keys";
                         axis = base::Vector3d::Zero();
-                        configMap.clear();
+                        configMap_.clear();
                     }
                 }
 
@@ -64,7 +64,7 @@ namespace envire
                 configmaps::ConfigMap getFullConfigMap() const override
                 {
                     configmaps::ConfigMap config;
-                    config.append(configMap);
+                    config.append(configMap_);
                     config["name"] = getName();
                     config["type"] = getType();
                     config["axis"]["x"] = axis.x();
