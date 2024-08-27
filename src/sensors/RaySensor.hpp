@@ -1,58 +1,57 @@
 #pragma once
 
+#include "../EnvireTypeBase.hpp"
+
 #include <string>
 #include <configmaps/ConfigMap.hpp>
 #include <base-logging/Logging.hpp>
 #include <boost/serialization/access.hpp>
 
-// TODO: add constructor with configmap
 
 namespace envire
 {
     namespace types
     {
-        namespace sensors {
-            struct RaySensor
+        namespace sensors
+        {
+            class RaySensor : public EnvireTypeBase
             {
+            public:
                 RaySensor() {}
 
-                RaySensor(configmaps::ConfigMap configMap_) : configMap(configMap_)
+                RaySensor(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)
                 {
-                    if (configMap.hasKey("name")
-                        && configMap.hasKey("max_distance")
-                        && configMap.hasKey("opening_width"))
+                    if (configMap_.hasKey("name")
+                        && configMap_.hasKey("max_distance")
+                        && configMap_.hasKey("opening_width"))
                     {
-                        name = configMap["name"].toString();
-                        maxDistance = configMap["max_distance"];
-                        openingWidth = configMap["opening_width"];
+                        name_ = configMap_["name"].toString();
+                        maxDistance = configMap_["max_distance"];
+                        openingWidth = configMap_["opening_width"];
 
                         // we avoid the value dublication
                         // delete the keys, since we stored their values as class parameters
-                        configMap.erase("name");
-                        configMap.erase("max_distance");
-                        configMap.erase("opening_width");
+                        configMap_.erase("name");
+                        configMap_.erase("max_distance");
+                        configMap_.erase("opening_width");
                     }
                     else
                     {
                         LOG_ERROR_S << "The config map has no all required keys";
-                        configMap.clear();
+                        configMap_.clear();
                     }
                 }
 
-                std::string name;
-                const std::string& getName() const
+                std::string getType() const override
                 {
-                    return name;
+                    return "ray";
                 }
-                configmaps::ConfigMap configMap;
 
-                double maxDistance;
-                double openingWidth;
-
-                configmaps::ConfigMap getFullConfigMap() {
+                configmaps::ConfigMap getFullConfigMap() const override
+                {
                     configmaps::ConfigMap config;
-                    config.append(configMap);
-                    config["name"] = name;
+                    config.append(configMap_);
+                    config["name"] = getName();
                     config["max_distance"] = maxDistance;
                     config["opening_width"] = openingWidth;
                     return config;
@@ -67,6 +66,10 @@ namespace envire
                 {
                     throw std::runtime_error("envire::types::RaySensor serialize not implemented");
                 }
+
+            private:
+                double maxDistance;
+                double openingWidth;
             };
         }
     }

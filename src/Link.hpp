@@ -1,5 +1,7 @@
 #pragma once
 
+#include "EnvireTypeBase.hpp"
+
 #include <base/Eigen.hpp>
 #include <configmaps/ConfigMap.hpp>
 #include <envire_core/plugin/Plugin.hpp>
@@ -8,32 +10,31 @@ namespace envire
 {
     namespace types
     {
-        struct Link
+        class Link : public EnvireTypeBase
         {
+        public:
             Link() {}
-            Link(configmaps::ConfigMap configMap) {
-                name = configMap["name"].toString();
+
+            Link(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)
+            {
+                name_ = configMap_["name"].toString();
 
                 // we avoid the value dublication
                 // delete the keys, since we stored their values as class parameters
-                configMap.erase("name");
-
-                this->configMap = configMap;
+                configMap_.erase("name");
             }
 
-            std::string name;
-            const std::string& getName() const
+            std::string getType() const override
             {
-                return name;
+                return "link";
             }
-            static inline std::string const type = "link";
-            configmaps::ConfigMap configMap;
 
-            configmaps::ConfigMap getFullConfigMap() {
+            configmaps::ConfigMap getFullConfigMap() const override
+            {
                 configmaps::ConfigMap config;
-                config.append(configMap);
-                config["name"] = name;
-                config["type"] = type;
+                config.append(configMap_);
+                config["name"] = getName();
+                config["type"] = getType();
                 return config;
             }
 

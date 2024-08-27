@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../EnvireTypeBase.hpp"
+
 #include <string>
 #include <boost/serialization/access.hpp>
 #include <base/Eigen.hpp>
@@ -13,46 +15,48 @@ namespace envire
     {
         namespace geometry
         {
-            struct Heightfield
+            class Heightfield : public EnvireTypeBase
             {
-                Heightfield() : Heightfield(std::string()) {}
-                Heightfield(std::string name) : name(name) {}
-                Heightfield(configmaps::ConfigMap &configMap_) : configMap(configMap_)
+            public:
+                Heightfield() : Heightfield(std::string())
+                {}
+
+                Heightfield(const std::string& name) : EnvireTypeBase(name)
+                {}
+
+                Heightfield(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)
                 {
-                    if (configMap.hasKey("name"))
+                    if (configMap_.hasKey("name"))
                     {
-                        name = configMap["name"].toString();
+                        name_ = configMap_["name"].toString();
 
-                        // store all additional values in the configMap parameter
-                        configMap.erase("name");
+                        // store all additional values in the configMap_ parameter
+                        configMap_.erase("name");
 
-                        if (configMap.hasKey("material"))
+                        if (configMap_.hasKey("material"))
                         {
-                            material = std::make_shared<Material>(configMap["material"]);
-                            configMap.erase("material");
+                            material = std::make_shared<Material>(configMap_["material"]);
+                            configMap_.erase("material");
                         }
                     }
                     else
                     {
                         LOG_ERROR_S << "The config map has no all required keys";
-                        configMap.clear();
+                        configMap_.clear();
                     }
                 }
 
-                std::string name;
-                const std::string& getName() const
+                std::string getType() const override
                 {
-                    return name;
+                    return "heightfield";
                 }
-                static inline std::string const type = "heightfield";
-                std::shared_ptr<Material> material;
-                configmaps::ConfigMap configMap;
 
-                configmaps::ConfigMap getFullConfigMap() {
+                configmaps::ConfigMap getFullConfigMap() const override
+                {
                     configmaps::ConfigMap config;
-                    config.append(configMap);
-                    config["name"] = name;
-                    config["type"] = type;
+                    config.append(configMap_);
+                    config["name"] = getName();
+                    config["type"] = getType();
                     if (material != nullptr)
                         config["material"] = material->getFullConfigMap();
                     return config;
@@ -67,6 +71,8 @@ namespace envire
                 {
                     throw std::runtime_error("envire::types::Heightfield serialize not implemented");
                 }
+            private:
+                std::shared_ptr<Material> material;
             };
         }
     }

@@ -1,11 +1,12 @@
 #pragma once
 
+#include "../EnvireTypeBase.hpp"
+
 #include <string>
 #include <configmaps/ConfigMap.hpp>
 #include <base-logging/Logging.hpp>
 #include <boost/serialization/access.hpp>
 
-// TODO: add constructor with configmap
 
 namespace envire
 {
@@ -13,36 +14,40 @@ namespace envire
     {
         namespace sensors
         {
-            struct Joint6DOFSensor
+            class Joint6DOFSensor : public EnvireTypeBase
             {
+            public:
                 Joint6DOFSensor() {}
 
-                Joint6DOFSensor(configmaps::ConfigMap configMap_) : configMap(configMap_)
+                Joint6DOFSensor(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)
                 {
-                    if (configMap.hasKey("name")
-                        && configMap.hasKey("link")
-                        && configMap.hasKey("joint"))
+                    if (configMap_.hasKey("name")
+                        && configMap_.hasKey("link")
+                        && configMap_.hasKey("joint"))
                     {
-                        name = configMap["name"].toString();
+                        name_ = configMap_["name"].toString();
 
                         // we avoid the value dublication
                         // delete the keys, since we stored their values as class parameters
-                        configMap.erase("name");
+                        configMap_.erase("name");
                     }
                     else
                     {
                         LOG_ERROR_S << "The config map has no all required keys";
-                        configMap.clear();
+                        configMap_.clear();
                     }
                 }
 
-                std::string name;
-                configmaps::ConfigMap configMap;
+                std::string getType() const override
+                {
+                    return "joint6dof";
+                }
 
-                configmaps::ConfigMap getFullConfigMap() {
+                configmaps::ConfigMap getFullConfigMap() const override
+                {
                     configmaps::ConfigMap config;
-                    config.append(configMap);
-                    config["name"] = name;
+                    config.append(configMap_);
+                    config["name"] = getName();
                     return config;
                 }
 

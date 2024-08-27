@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../EnvireTypeBase.hpp"
+
 #include <string>
 #include <boost/serialization/access.hpp>
 #include <base/Eigen.hpp>
@@ -12,53 +14,54 @@ namespace envire
     {
         namespace geometry
         {
-            struct Plane
+            class Plane : public EnvireTypeBase
             {
-                Plane() : Plane(std::string(), base::Vector2d(0., 0.)) {}
-                Plane(std::string name, base::Vector2d size) : name(name), size(size) {}
-                // TODO: store other values in configMap in the configMap variable
-                Plane(configmaps::ConfigMap &configMap_) : configMap(configMap_)
+            public:
+                Plane() : Plane(std::string(), base::Vector2d(0., 0.))
+                {}
+
+                Plane(const std::string& name, const base::Vector2d& size) : EnvireTypeBase(name), size(size)
+                {}
+
+                // TODO: store other values in configMap_ in the configMap_ variable
+                Plane(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)
                 {
-                    if (configMap.hasKey("name") && configMap.hasKey("size")
-                        && configMap["size"].hasKey("x") && configMap["size"].hasKey("y"))
+                    if (configMap_.hasKey("name") && configMap_.hasKey("size")
+                        && configMap_["size"].hasKey("x") && configMap_["size"].hasKey("y"))
                     {
-                        name = configMap["name"].toString();
-                        size.x() = configMap["size"]["x"];
-                        size.y() = configMap["size"]["y"];
+                        name_ = configMap_["name"].toString();
+                        size.x() = configMap_["size"]["x"];
+                        size.y() = configMap_["size"]["y"];
 
-                        // store all additional values in the configMap parameter
-                        configMap.erase("name");
-                        configMap.erase("size");
+                        // store all additional values in the configMap_ parameter
+                        configMap_.erase("name");
+                        configMap_.erase("size");
 
-                        if (configMap.hasKey("material"))
+                        if (configMap_.hasKey("material"))
                         {
-                            material = std::make_shared<Material>(configMap["material"]);
-                            configMap.erase("material");
+                            material = std::make_shared<Material>(configMap_["material"]);
+                            configMap_.erase("material");
                         }
                     }
                     else
                     {
                         LOG_ERROR_S << "The config map has no all required keys";
                         size = base::Vector2d::Zero();
-                        configMap.clear();
+                        configMap_.clear();
                     }
                 }
 
-                std::string name;
-                const std::string& getName() const
+                std::string getType() const override
                 {
-                    return name;
+                    return "plane";
                 }
-                static inline std::string const type = "plane";
-                base::Vector2d size;
-                std::shared_ptr<Material> material;
-                configmaps::ConfigMap configMap;
 
-                configmaps::ConfigMap getFullConfigMap() {
+                configmaps::ConfigMap getFullConfigMap() const override
+                {
                     configmaps::ConfigMap config;
-                    config.append(configMap);
-                    config["name"] = name;
-                    config["type"] = type;
+                    config.append(configMap_);
+                    config["name"] = getName();
+                    config["type"] = getType();
                     config["size"]["x"] = size.x();
                     config["size"]["y"] = size.y();
                     if (material != nullptr)
@@ -75,6 +78,9 @@ namespace envire
                 {
                     throw std::runtime_error("envire::types::Plane serialize not implemented");
                 }
+            private:
+                base::Vector2d size;
+                std::shared_ptr<Material> material;
             };
         }
     }

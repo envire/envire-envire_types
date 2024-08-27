@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../EnvireTypeBase.hpp"
+
 #include <string>
 #include <boost/serialization/access.hpp>
 #include <base/Eigen.hpp>
@@ -7,64 +9,68 @@
 #include <configmaps/ConfigMap.hpp>
 #include "Material.hpp"
 
+
 namespace envire
 {
     namespace types
     {
         namespace geometry
         {
-            struct Box
+            class Box : public EnvireTypeBase
             {
-                Box() : Box(std::string(), base::Vector3d::Zero()) {}
-                Box(std::string name, base::Vector3d size) : name(name), size(size) {}
-                Box(configmaps::ConfigMap &configMap_) : configMap(configMap_)
+            public:
+                Box() : Box(std::string(), base::Vector3d::Zero())
+                {}
+
+                Box(const std::string& name, const base::Vector3d& size) : EnvireTypeBase(name), size(size)
+                {}
+
+                Box(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)
                 {
-                    if (configMap.hasKey("name") && configMap.hasKey("size")
-                        && configMap["size"].hasKey("x") && configMap["size"].hasKey("y") && configMap["size"].hasKey("z"))
+                    if (configMap_.hasKey("name") && configMap_.hasKey("size")
+                        && configMap_["size"].hasKey("x") && configMap_["size"].hasKey("y") && configMap_["size"].hasKey("z"))
                     {
-                        name = configMap["name"].toString();
-                        size.x() = configMap["size"]["x"];
-                        size.y() = configMap["size"]["y"];
-                        size.z() = configMap["size"]["z"];
+                        name_ = configMap_["name"].toString();
+                        size.x() = configMap_["size"]["x"];
+                        size.y() = configMap_["size"]["y"];
+                        size.z() = configMap_["size"]["z"];
 
-                        // store all additional values in the configMap parameter
-                        configMap.erase("name");
-                        configMap.erase("size");
+                        // store all additional values in the configMap_ parameter
+                        configMap_.erase("name");
+                        configMap_.erase("size");
 
-                        if (configMap.hasKey("material"))
+                        if (configMap_.hasKey("material"))
                         {
-                            material = std::make_shared<Material>(configMap["material"]);
-                            configMap.erase("material");
+                            material = std::make_shared<Material>(configMap_["material"]);
+                            configMap_.erase("material");
                         }
                     }
                     else
                     {
                         LOG_ERROR_S << "The config map has no all required keys";
                         size = base::Vector3d::Zero();
-                        configMap.clear();
+                        configMap_.clear();
                     }
                 }
 
-                std::string name;
-                const std::string& getName() const
+                std::string getType() const override
                 {
-                    return name;
+                    return "box";
                 }
-                static inline std::string const type = "box";
-                base::Vector3d size;
-                std::shared_ptr<Material> material;
-                configmaps::ConfigMap configMap;
 
-                configmaps::ConfigMap getFullConfigMap() {
+                configmaps::ConfigMap getFullConfigMap() const override
+                {
                     configmaps::ConfigMap config;
-                    config.append(configMap);
-                    config["name"] = name;
-                    config["type"] = type;
+                    config.append(configMap_);
+                    config["name"] = getName();
+                    config["type"] = getType();
                     config["size"]["x"] = size.x();
                     config["size"]["y"] = size.y();
                     config["size"]["z"] = size.z();
                     if (material != nullptr)
+                    {
                         config["material"] = material->getFullConfigMap();
+                    }
                     return config;
                 }
 
@@ -77,6 +83,10 @@ namespace envire
                 {
                     throw std::runtime_error("envire::types::Box serialize not implemented");
                 }
+
+            private:
+                base::Vector3d size;
+                std::shared_ptr<Material> material;
             };
         }
     }

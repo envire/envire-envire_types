@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../EnvireTypeBase.hpp"
+
 #include <string>
 #include <boost/serialization/access.hpp>
 #include <base-logging/Logging.hpp>
@@ -11,51 +13,52 @@ namespace envire
     {
         namespace geometry
         {
-            struct Sphere
+            class Sphere : public EnvireTypeBase
             {
-                Sphere() : Sphere(std::string(), 0.) {}
-                Sphere(std::string name, double radius) : name(name), radius(radius) {}
-                // TODO: store other values in configMap in the configMap variable
-                Sphere(configmaps::ConfigMap &configMap_) : configMap(configMap_)
+            public:
+                Sphere() : Sphere(std::string(), 0.)
+                {}
+
+                Sphere(const std::string& name, const double radius) : EnvireTypeBase(name), radius(radius)
+                {}
+
+                // TODO: store other values in configMap_ in the configMap_ variable
+                Sphere(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)
                 {
-                    if (configMap.hasKey("name") && configMap.hasKey("radius"))
+                    if (configMap_.hasKey("name") && configMap_.hasKey("radius"))
                     {
-                        name = configMap["name"].toString();
-                        radius = configMap["radius"];
+                        name_ = configMap_["name"].toString();
+                        radius = configMap_["radius"];
 
-                        // store all additional values in the configMap parameter
-                        configMap.erase("name");
-                        configMap.erase("radius");
+                        // store all additional values in the configMap_ parameter
+                        configMap_.erase("name");
+                        configMap_.erase("radius");
 
-                        if (configMap.hasKey("material"))
+                        if (configMap_.hasKey("material"))
                         {
-                            material = std::make_shared<Material>(configMap["material"]);
-                            configMap.erase("material");
+                            material = std::make_shared<Material>(configMap_["material"]);
+                            configMap_.erase("material");
                         }
                     }
                     else
                     {
                         LOG_ERROR_S << "The config map has no all required keys";
                         radius = 0.;
-                        configMap.clear();
+                        configMap_.clear();
                     }
                 }
 
-                std::string name;
-                const std::string& getName() const
+                std::string getType() const override
                 {
-                    return name;
+                    return "sphere";
                 }
-                static inline std::string const type = "sphere";
-                double radius;
-                std::shared_ptr<Material> material;
-                configmaps::ConfigMap configMap;
 
-                configmaps::ConfigMap getFullConfigMap() {
+                configmaps::ConfigMap getFullConfigMap() const override
+                {
                     configmaps::ConfigMap config;
-                    config.append(configMap);
-                    config["name"] = name;
-                    config["type"] = type;
+                    config.append(configMap_);
+                    config["name"] = getName();
+                    config["type"] = getType();
                     config["radius"] = radius;
                     if (material != nullptr)
                         config["material"] = material->getFullConfigMap();
@@ -71,6 +74,10 @@ namespace envire
                 {
                     throw std::runtime_error("envire::types::Sphere serialize not implemented");
                 }
+
+            private:
+                double radius;
+                std::shared_ptr<Material> material;
             };
         }
     }

@@ -11,6 +11,7 @@ rock_library(envire_types
         registration/TypeCreatorFactory.cpp
         registration/TypeRegistration.cpp
     HEADERS
+        EnvireTypeBase.hpp
         World.hpp
         Link.hpp
         Inertial.hpp

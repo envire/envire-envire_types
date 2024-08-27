@@ -1,11 +1,12 @@
 #pragma once
 
+#include "../EnvireTypeBase.hpp"
+
 #include <string>
 #include <base/Eigen.hpp>
 #include <base-logging/Logging.hpp>
 #include <configmaps/ConfigMap.hpp>
 
-// TODO: add constructor with configmap
 
 namespace envire
 {
@@ -13,55 +14,49 @@ namespace envire
     {
         namespace motors
         {
-            struct DC
+            class DC : public EnvireTypeBase
             {
+            public:
                 DC() {}
 
-                DC(configmaps::ConfigMap configMap_) : configMap(configMap_)
+                DC(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)
                 {
-                    if (configMap.hasKey("name")
-                        && configMap.hasKey("minValue") && configMap.hasKey("maxValue")
-                        && configMap.hasKey("maxEffort") && configMap.hasKey("maxSpeed"))
+                    if (configMap_.hasKey("name")
+                        && configMap_.hasKey("minValue") && configMap_.hasKey("maxValue")
+                        && configMap_.hasKey("maxEffort") && configMap_.hasKey("maxSpeed"))
                     {
-                        name = configMap["name"].toString();
-                        minPosition = configMap["minValue"];
-                        maxPosition = configMap["maxValue"];
-                        maxEffort = configMap["maxEffort"];
-                        maxSpeed = configMap["maxSpeed"];
+                        name_ = configMap_["name"].toString();
+                        minPosition = configMap_["minValue"];
+                        maxPosition = configMap_["maxValue"];
+                        maxEffort = configMap_["maxEffort"];
+                        maxSpeed = configMap_["maxSpeed"];
 
                         // we avoid the value dublication
                         // delete the keys, since we stored their values as class parameters
-                        configMap.erase("name");
-                        configMap.erase("minValue");
-                        configMap.erase("maxValue");
-                        configMap.erase("maxEffort");
-                        configMap.erase("maxSpeed");
+                        configMap_.erase("name");
+                        configMap_.erase("minValue");
+                        configMap_.erase("maxValue");
+                        configMap_.erase("maxEffort");
+                        configMap_.erase("maxSpeed");
                     }
                     else
                     {
                         LOG_ERROR_S << "The config map has no all required keys";
-                        configMap.clear();
+                        configMap_.clear();
                     }
                 }
 
-                std::string name;
-                const std::string& getName() const
+                std::string getType() const override
                 {
-                    return name;
+                    return "DC";
                 }
-                static inline std::string const type = "DC";
-                configmaps::ConfigMap configMap;
 
-                double minPosition;
-                double maxPosition;
-                double maxEffort;
-                double maxSpeed;
-
-                configmaps::ConfigMap getFullConfigMap() {
+                configmaps::ConfigMap getFullConfigMap() const override
+                {
                     configmaps::ConfigMap config;
-                    config.append(configMap);
-                    config["name"] = name;
-                    config["type"] = type;
+                    config.append(configMap_);
+                    config["name"] = getName();
+                    config["type"] = getType();
                     config["minPosition"] = minPosition;
                     config["maxPosition"] = maxPosition;
                     config["maxEffort"] = maxEffort;
@@ -78,6 +73,12 @@ namespace envire
                 {
                     throw std::runtime_error("envire::types::MotorDC serialize not implemented");
                 }
+
+            private:
+                double minPosition;
+                double maxPosition;
+                double maxEffort;
+                double maxSpeed;
             };
         }
     }

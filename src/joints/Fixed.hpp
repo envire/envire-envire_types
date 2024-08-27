@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../EnvireTypeBase.hpp"
+
 #include <string>
 #include <boost/serialization/access.hpp>
 #include <configmaps/ConfigMap.hpp>
@@ -11,39 +13,39 @@ namespace envire
     {
         namespace joints
         {
-            struct Fixed
+            class Fixed : public EnvireTypeBase
             {
+            public:
                 Fixed() {}
 
-                Fixed(configmaps::ConfigMap configMap_) : configMap(configMap_) {
-                    if (configMap.hasKey("name"))
+                Fixed(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)
+                {
+                    if (configMap_.hasKey("name"))
                     {
-                        name = configMap["name"].toString();
+                        name_ = configMap_["name"].toString();
 
                         // we avoid the value dublication
                         // delete the keys, since we stored their values as class parameters
-                        configMap.erase("name");
+                        configMap_.erase("name");
                     }
                     else
                     {
                         LOG_ERROR_S << "The config map has no all required keys";
-                        configMap.clear();
+                        configMap_.clear();
                     }
                 }
 
-                std::string name;
-                const std::string& getName() const
+                std::string getType() const override
                 {
-                    return name;
+                    return "fixed";
                 }
-                static inline std::string const type = "fixed";
-                configmaps::ConfigMap configMap;
 
-                configmaps::ConfigMap getFullConfigMap() {
+                configmaps::ConfigMap getFullConfigMap() const override
+                {
                     configmaps::ConfigMap config;
-                    config.append(configMap);
-                    config["name"] = name;
-                    config["type"] = type;
+                    config.append(configMap_);
+                    config["name"] = getName();
+                    config["type"] = getType();
                     return config;
                 }
 

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../EnvireTypeBase.hpp"
+
 #include <string>
 #include <boost/serialization/access.hpp>
 #include <base/Eigen.hpp>
@@ -12,32 +14,40 @@ namespace envire
     {
         namespace geometry
         {
-            struct Mesh
+            class Mesh : public EnvireTypeBase
             {
-                Mesh() : Mesh(std::string(), std::string()) {}
-                Mesh(std::string name, std::string filename) : Mesh(name, filename, base::Vector3d(1., 1., 1.)) {}
-                Mesh(std::string name, std::string filename, base::Vector3d scale) : name(name), filename(filename), scale(scale) {}
-                // TODO: store other values in configMap in the configMap variable
-                Mesh(configmaps::ConfigMap &configMap_) : configMap(configMap_)
+            public:
+                Mesh() : Mesh(std::string(), std::string())
+                {}
+
+                Mesh(const std::string& name, const std::string& filename) : Mesh(name, filename, base::Vector3d(1., 1., 1.))
+                {}
+
+                Mesh(const std::string& name, const std::string& filename, const base::Vector3d& scale)
+                    : EnvireTypeBase(name), filename(filename), scale(scale)
+                {}
+
+                // TODO: store other values in configMap_ in the configMap_ variable
+                Mesh(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)
                 {
-                    if (configMap.hasKey("name") && configMap.hasKey("filename") && configMap.hasKey("scale") &&
-                        configMap["scale"].hasKey("x") && configMap["scale"].hasKey("y") && configMap["scale"].hasKey("z"))
+                    if (configMap_.hasKey("name") && configMap_.hasKey("filename") && configMap_.hasKey("scale") &&
+                        configMap_["scale"].hasKey("x") && configMap_["scale"].hasKey("y") && configMap_["scale"].hasKey("z"))
                     {
-                        name = configMap["name"].toString();
-                        filename = configMap["filename"].toString();
-                        scale.x() = configMap["scale"]["x"];
-                        scale.y() = configMap["scale"]["y"];
-                        scale.z() = configMap["scale"]["z"];
+                        name_ = configMap_["name"].toString();
+                        filename = configMap_["filename"].toString();
+                        scale.x() = configMap_["scale"]["x"];
+                        scale.y() = configMap_["scale"]["y"];
+                        scale.z() = configMap_["scale"]["z"];
 
-                        // store all additional values in the configMap parameter
-                        configMap.erase("name");
-                        configMap.erase("filename");
-                        configMap.erase("scale");
+                        // store all additional values in the configMap_ parameter
+                        configMap_.erase("name");
+                        configMap_.erase("filename");
+                        configMap_.erase("scale");
 
-                        if (configMap.hasKey("material"))
+                        if (configMap_.hasKey("material"))
                         {
-                            material = std::make_shared<Material>(configMap["material"]);
-                            configMap.erase("material");
+                            material = std::make_shared<Material>(configMap_["material"]);
+                            configMap_.erase("material");
                         } else
                             material = nullptr;
 
@@ -47,26 +57,21 @@ namespace envire
                         LOG_ERROR_S << "The config map has no all required keys";
                         filename = std::string();
                         scale = base::Vector3d::Zero();
-                        configMap.clear();
+                        configMap_.clear();
                     }
                 }
 
-                std::string name;
-                const std::string& getName() const
+                std::string getType() const override
                 {
-                    return name;
+                    return "mesh";
                 }
-                static inline std::string const type = "mesh";
-                std::string filename;
-                base::Vector3d scale;
-                std::shared_ptr<Material> material;
-                configmaps::ConfigMap configMap;
 
-                configmaps::ConfigMap getFullConfigMap() {
+                configmaps::ConfigMap getFullConfigMap() const override
+                {
                     configmaps::ConfigMap config;
-                    config.append(configMap);
-                    config["name"] = name;
-                    config["type"] = type;
+                    config.append(configMap_);
+                    config["name"] = getName();
+                    config["type"] = getType();
                     config["filename"] = filename;
                     config["scale"]["x"] = scale.x();
                     config["scale"]["y"] = scale.y();
@@ -85,6 +90,10 @@ namespace envire
                 {
                     throw std::runtime_error("envire::types::Mesh serialize not implemented");
                 }
+            private:
+                std::string filename;
+                base::Vector3d scale;
+                std::shared_ptr<Material> material;
             };
         }
     }

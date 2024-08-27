@@ -1,5 +1,7 @@
 #pragma once
 
+#include "EnvireTypeBase.hpp"
+
 #include <base/Eigen.hpp>
 #include <configmaps/ConfigMap.hpp>
 #include <envire_core/plugin/Plugin.hpp>
@@ -8,41 +10,40 @@ namespace envire
 {
     namespace types
     {
-        struct World
+        class World : public EnvireTypeBase
         {
+        public:
             World() {}
-            World(configmaps::ConfigMap configMap) {
-                name = configMap["name"].toString();
-                prefix = configMap["prefix"].toString();
+
+            World(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)
+            {
+                name_ = configMap_["name"].toString();
+                prefix_ = configMap_["prefix"].toString();
 
                 // we avoid the value dublication
                 // delete the keys, since we stored their values as class parameters
-                configMap.erase("name");
-                configMap.erase("prefix");
-
-                this->configMap = configMap;
+                configMap_.erase("name");
+                configMap_.erase("prefix");
             }
 
-            std::string name;
-            const std::string& getName() const
+            std::string getType() const override
             {
-                return name;
+                return "world";
             }
-            std::string prefix;
+
+            configmaps::ConfigMap getFullConfigMap() const override
+            {
+                configmaps::ConfigMap config;
+                config.append(configMap_);
+                config["name"] = getName();
+                config["type"] = getType();
+                config["prefix"] = getPrefix();
+                return config;
+            }
+
             const std::string& getPrefix() const
             {
-                return prefix;
-            }
-            static inline std::string const type = "world";
-            configmaps::ConfigMap configMap;
-
-            configmaps::ConfigMap getFullConfigMap() {
-                configmaps::ConfigMap config;
-                config.append(configMap);
-                config["name"] = name;
-                config["type"] = type;
-                config["prefix"] = prefix;
-                return config;
+                return prefix_;
             }
 
             /**Grants access to boost serialization */
@@ -54,6 +55,9 @@ namespace envire
             {
                 throw std::runtime_error("envire::types::World::serialize not implemented");
             }
+
+        private:
+            std::string prefix_;
         };
     }
 }

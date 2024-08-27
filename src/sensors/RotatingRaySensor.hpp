@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../EnvireTypeBase.hpp"
+
 #include <string>
 #include <configmaps/ConfigMap.hpp>
 #include <base-logging/Logging.hpp>
@@ -9,39 +11,40 @@ namespace envire
 {
     namespace types
     {
-        namespace sensors {
-            struct RotatingRaySensor
+        namespace sensors
+        {
+            class RotatingRaySensor : public EnvireTypeBase
             {
+            public:
                 RotatingRaySensor() {}
 
-                RotatingRaySensor(configmaps::ConfigMap configMap_) : configMap(configMap_)
+                RotatingRaySensor(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)
                 {
-                    if (configMap.hasKey("name"))
+                    if (configMap_.hasKey("name"))
                     {
-                        name = configMap["name"].toString();
+                        name_ = configMap_["name"].toString();
 
                         // we avoid the value dublication
                         // delete the keys, since we stored their values as class parameters
-                        configMap.erase("name");
+                        configMap_.erase("name");
                     }
                     else
                     {
                         LOG_ERROR_S << "The config map has no all required keys";
-                        configMap.clear();
+                        configMap_.clear();
                     }
                 }
 
-                std::string name;
-                const std::string& getName() const
+                std::string getType() const override
                 {
-                    return name;
+                    return "rotating ray";
                 }
-                configmaps::ConfigMap configMap;
 
-                configmaps::ConfigMap getFullConfigMap() {
+                configmaps::ConfigMap getFullConfigMap() const override
+                {
                     configmaps::ConfigMap config;
-                    config.append(configMap);
-                    config["name"] = name;
+                    config.append(configMap_);
+                    config["name"] = getName();
                     return config;
                 }
 

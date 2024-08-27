@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../EnvireTypeBase.hpp"
+
 #include <string>
 #include <boost/serialization/access.hpp>
 #include <base/Eigen.hpp>
@@ -14,20 +16,24 @@ namespace envire
         {
             struct Color
             {
-                Color() : r(0), g(0), b(0), a(1) {}
-                Color(configmaps::ConfigMap &configMap) {
+                Color() : r(0), g(0), b(0), a(1)
+                {}
+
+                Color(configmaps::ConfigMap configMap)
+                {
                     if (configMap.hasKey("r") && configMap.hasKey("g") && configMap.hasKey("b"))
                     {
                         r = configMap["r"];
                         g = configMap["g"];
                         b = configMap["b"];
-
                     }
 
                     if (configMap.hasKey("a"))
                     {
                         a = configMap["a"];
-                    } else {
+                    }
+                    else
+                    {
                         a = 1.0;
                     }
                 }
@@ -37,7 +43,8 @@ namespace envire
                 double b;
                 double a;
 
-                configmaps::ConfigMap getFullConfigMap() {
+                configmaps::ConfigMap getFullConfigMap() const
+                {
                     configmaps::ConfigMap config;
                     config["r"] = r;
                     config["g"] = g;
@@ -47,65 +54,60 @@ namespace envire
                 }
             };
 
-            struct Material
+            class Material : public EnvireTypeBase
             {
+            public:
                 Material() {}
-                Material(configmaps::ConfigMap &configMap_) : configMap(configMap_)
+
+                Material(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)
                 {
-                    if (configMap.hasKey("name"))
+                    if (configMap_.hasKey("name"))
                     {
-                        name = configMap["name"].toString();
-                        configMap.erase("name");
+                        name_ = configMap_["name"].toString();
+                        configMap_.erase("name");
                     }
-                    if (configMap.hasKey("ambientColor"))
+                    if (configMap_.hasKey("ambientColor"))
                     {
-                        ambientColor = Color(configMap["ambientColor"]);
-                        configMap.erase("ambientColor");
-                    }
-
-                    if (configMap.hasKey("diffuseColor"))
-                    {
-                        diffuseColor = Color(configMap["diffuseColor"]);
-                        configMap.erase("diffuseColor");
+                        ambientColor = Color(configMap_["ambientColor"]);
+                        configMap_.erase("ambientColor");
                     }
 
-                    if (configMap.hasKey("specularColor"))
+                    if (configMap_.hasKey("diffuseColor"))
                     {
-                        specularColor = Color(configMap["specularColor"]);
-                        configMap.erase("specularColor");
+                        diffuseColor = Color(configMap_["diffuseColor"]);
+                        configMap_.erase("diffuseColor");
                     }
 
-                    if (configMap.hasKey("shininess"))
+                    if (configMap_.hasKey("specularColor"))
                     {
-                        shininess = configMap["shininess"];
-                        configMap.erase("shininess");
+                        specularColor = Color(configMap_["specularColor"]);
+                        configMap_.erase("specularColor");
                     }
 
-                    if (configMap.hasKey("textureFilename"))
+                    if (configMap_.hasKey("shininess"))
                     {
-                        textureFilename = configMap["textureFilename"].toString();
-                        configMap.erase("textureFilename");
+                        shininess = configMap_["shininess"];
+                        configMap_.erase("shininess");
+                    }
+
+                    if (configMap_.hasKey("textureFilename"))
+                    {
+                        textureFilename = configMap_["textureFilename"].toString();
+                        configMap_.erase("textureFilename");
                     }
                 }
 
-                std::string name;
-                const std::string& getName() const
+                std::string getType() const override
                 {
-                    return name;
+                    return "material";
                 }
-                static inline std::string const type = "material";
-                Color ambientColor;
-                Color diffuseColor;
-                Color specularColor;
-                double shininess;
-                std::string textureFilename;
-                configmaps::ConfigMap configMap;
 
-                configmaps::ConfigMap getFullConfigMap() {
+                configmaps::ConfigMap getFullConfigMap() const override
+                {
                     configmaps::ConfigMap config;
-                    config.append(configMap);
-                    config["name"] = name;
-                    config["type"] = type;
+                    config.append(configMap_);
+                    config["name"] = getName();
+                    config["type"] = getType();
                     config["ambientColor"] = ambientColor.getFullConfigMap();
                     config["diffuseColor"] = diffuseColor.getFullConfigMap();
                     config["specularColor"] = specularColor.getFullConfigMap();
@@ -123,6 +125,12 @@ namespace envire
                 {
                     throw std::runtime_error("envire::types::Box serialize not implemented");
                 }
+            private:
+                Color ambientColor;
+                Color diffuseColor;
+                Color specularColor;
+                double shininess;
+                std::string textureFilename;
             };
         }
     }

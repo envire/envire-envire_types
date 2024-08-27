@@ -1,11 +1,12 @@
 #pragma once
 
+#include "../EnvireTypeBase.hpp"
+
 #include <string>
 #include <base/Eigen.hpp>
 #include <base-logging/Logging.hpp>
 #include <configmaps/ConfigMap.hpp>
 
-// TODO: add constructor with configmap
 
 namespace envire
 {
@@ -13,63 +14,58 @@ namespace envire
     {
         namespace motors
         {
-            struct DirectEffort
+            class DirectEffort : public EnvireTypeBase
             {
+            public:
                 DirectEffort() {}
-                DirectEffort(configmaps::ConfigMap configMap_) : configMap(configMap_)
+
+                DirectEffort(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)
                 {
 
                     maxEffortControl = false;
-                    if (configMap.hasKey("name")
-                        && configMap.hasKey("minValue") && configMap.hasKey("maxValue")
-                        && configMap.hasKey("maxEffort") && configMap.hasKey("maxSpeed"))
+                    if (configMap_.hasKey("name")
+                        && configMap_.hasKey("minValue") && configMap_.hasKey("maxValue")
+                        && configMap_.hasKey("maxEffort") && configMap_.hasKey("maxSpeed"))
                     {
-                        name = configMap["name"].toString();
-                        minValue = configMap["minValue"];
-                        maxValue = configMap["maxValue"];
-                        maxEffort = configMap["maxEffort"];
-                        maxSpeed = configMap["maxSpeed"];
+                        name_ = configMap_["name"].toString();
+                        minValue = configMap_["minValue"];
+                        maxValue = configMap_["maxValue"];
+                        maxEffort = configMap_["maxEffort"];
+                        maxSpeed = configMap_["maxSpeed"];
 
                         // we avoid the value dublication
                         // delete the keys, since we stored their values as class parameters
-                        configMap.erase("name");
-                        configMap.erase("minValue");
-                        configMap.erase("maxValue");
-                        configMap.erase("maxEffort");
-                        configMap.erase("maxSpeed");
+                        configMap_.erase("name");
+                        configMap_.erase("minValue");
+                        configMap_.erase("maxValue");
+                        configMap_.erase("maxEffort");
+                        configMap_.erase("maxSpeed");
                     }
                     else
                     {
                         LOG_ERROR_S << "The config map has no all required keys";
-                        configMap.clear();
+                        configMap_.clear();
                     }
-                    if(configMap.hasKey("maxEffortControl"))
+                    if(configMap_.hasKey("maxEffortControl"))
                     {
-                        maxEffortControl = configMap["maxEffortControl"];
-                        configMap.erase("maxEffortControl");
+                        maxEffortControl = configMap_["maxEffortControl"];
+                        configMap_.erase("maxEffortControl");
                     }
                 }
 
-                std::string name;
-                const std::string& getName() const
+                std::string getType() const override
                 {
-                    return name;
+                    return "direct_effort";
                 }
-                static inline std::string const type = "direct_effort";
-                configmaps::ConfigMap configMap;
 
-                double minValue, maxValue;
-                double maxEffort;
-                double maxSpeed;
-                bool maxEffortControl;
-
-                configmaps::ConfigMap getFullConfigMap() {
+                configmaps::ConfigMap getFullConfigMap() const override
+                {
                     configmaps::ConfigMap config;
-                    config.append(configMap);
-                    config["name"] = name;
-                    config["type"] = type;
-                    configMap["minValue"] = minValue;
-                    configMap["maxValue"] = maxValue;
+                    config.append(configMap_);
+                    config["name"] = getName();
+                    config["type"] = getType();
+                    config["minValue"] = minValue;
+                    config["maxValue"] = maxValue;
                     config["maxEffort"] = maxEffort;
                     config["maxSpeed"] = maxSpeed;
                     config["maxEffortControl"] = maxEffortControl;
@@ -85,6 +81,12 @@ namespace envire
                 {
                     throw std::runtime_error("envire::types::MotorDirectEffort serialize not implemented");
                 }
+
+            private:
+                double minValue, maxValue;
+                double maxEffort;
+                double maxSpeed;
+                bool maxEffortControl;
             };
         }
     }

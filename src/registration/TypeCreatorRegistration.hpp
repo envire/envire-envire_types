@@ -7,11 +7,11 @@
 
 #include <cstdio>
 
-namespace envire {
+namespace envire
+{
 
-    namespace types {
-
-
+    namespace types
+    {
         #define ENVIRE_TYPE_CREATOR_REGISTRATION(_datatype) \
         ENVIRE_TYPE_CREATOR_REGISTRATION_INTERNAL(_datatype, __COUNTER__)
 

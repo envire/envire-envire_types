@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../EnvireTypeBase.hpp"
+
 #include <string>
 #include <boost/serialization/access.hpp>
 #include <base-logging/Logging.hpp>
@@ -11,27 +13,33 @@ namespace envire
     {
         namespace geometry
         {
-            struct Cylinder
+            class Cylinder : public EnvireTypeBase
             {
-                Cylinder() : Cylinder(std::string(), 0., 0.) {}
-                Cylinder(std::string name, double radius, double length) : name(name), radius(radius), length(length) {}
-                Cylinder(configmaps::ConfigMap &configMap_) : configMap(configMap_)
+            public:
+                Cylinder() : Cylinder(std::string(), 0., 0.)
+                {}
+
+                Cylinder(const std::string& name, const double radius, const double length)
+                    : EnvireTypeBase(name), radius(radius), length(length)
+                {}
+
+                Cylinder(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)
                 {
-                    if (configMap.hasKey("name") && configMap.hasKey("radius") && configMap.hasKey("length"))
+                    if (configMap_.hasKey("name") && configMap_.hasKey("radius") && configMap_.hasKey("length"))
                     {
-                        name = configMap["name"].toString();
-                        radius = configMap["radius"];
-                        length = configMap["length"];
+                        name_ = configMap_["name"].toString();
+                        radius = configMap_["radius"];
+                        length = configMap_["length"];
 
-                        // store all additional values in the configMap parameter
-                        configMap.erase("name");
-                        configMap.erase("radius");
-                        configMap.erase("length");
+                        // store all additional values in the configMap_ parameter
+                        configMap_.erase("name");
+                        configMap_.erase("radius");
+                        configMap_.erase("length");
 
-                        if (configMap.hasKey("material"))
+                        if (configMap_.hasKey("material"))
                         {
-                            material = std::make_shared<Material>(configMap["material"]);
-                            configMap.erase("material");
+                            material = std::make_shared<Material>(configMap_["material"]);
+                            configMap_.erase("material");
                         }
                     }
                     else
@@ -39,26 +47,21 @@ namespace envire
                         LOG_ERROR_S << "The config map has no all required keys";
                         radius = 0.;
                         length = 0.;
-                        configMap.clear();
+                        configMap_.clear();
                     }
                 }
 
-                std::string name;
-                const std::string& getName() const
+                std::string getType() const override
                 {
-                    return name;
+                    return "cylinder";
                 }
-                static inline std::string const type = "cylinder";
-                double radius;
-                double length;
-                std::shared_ptr<Material> material;
-                configmaps::ConfigMap configMap;
 
-                configmaps::ConfigMap getFullConfigMap() {
+                configmaps::ConfigMap getFullConfigMap() const override
+                {
                     configmaps::ConfigMap config;
-                    config.append(configMap);
-                    config["name"] = name;
-                    config["type"] = type;
+                    config.append(configMap_);
+                    config["name"] = getName();
+                    config["type"] = getType();
                     config["radius"] = radius;
                     config["length"] = length;
                     if (material != nullptr)
@@ -75,6 +78,10 @@ namespace envire
                 {
                     throw std::runtime_error("envire::types::Cylinder serialize not implemented");
                 }
+            private:
+                double radius;
+                double length;
+                std::shared_ptr<Material> material;
             };
         }
     }
