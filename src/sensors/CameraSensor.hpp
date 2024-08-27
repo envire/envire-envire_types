@@ -24,7 +24,7 @@ namespace envire
                     if (configMap.hasKey("name")
                         && configMap.hasKey("opening_width") && configMap.hasKey("opening_height"))
                     {
-                        name = configMap["name"].toString();
+                        name_ = configMap["name"].toString();
                         openingWidth = configMap["opening_width"];
                         openingHeight = configMap["opening_height"];
 
@@ -46,7 +46,6 @@ namespace envire
                     return "camera";
                 }
 
-                std::string name;
                 configmaps::ConfigMap configMap;
 
                 double openingWidth;
@@ -56,7 +55,7 @@ namespace envire
                 {
                     configmaps::ConfigMap config;
                     config.append(configMap);
-                    config["name"] = name;
+                    config["name"] = getName();
                     config["openingWidth"] = openingWidth;
                     config["openingHeight"] = openingHeight;
                     return config;

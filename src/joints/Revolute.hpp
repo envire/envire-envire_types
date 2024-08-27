@@ -26,7 +26,7 @@ namespace envire
                         && configMap.hasKey("minPosition") && configMap.hasKey("maxPosition")
                         && configMap.hasKey("maxEffort") && configMap.hasKey("maxVelocity"))
                     {
-                        name = configMap["name"].toString();
+                        name_ = configMap["name"].toString();
                         axis = base::Vector3d(configMap["axis"]["x"], configMap["axis"]["y"], configMap["axis"]["z"]);
                         minPosition = configMap["minPosition"];
                         maxPosition = configMap["maxPosition"];
@@ -55,7 +55,6 @@ namespace envire
                     return "revolute";
                 }
 
-                std::string name;
                 configmaps::ConfigMap configMap;
 
                 base::Vector3d axis;
@@ -68,7 +67,7 @@ namespace envire
                 {
                     configmaps::ConfigMap config;
                     config.append(configMap);
-                    config["name"] = name;
+                    config["name"] = getName();
                     config["type"] = getType();
                     config["axis"]["x"] = axis.x();
                     config["axis"]["y"] = axis.y();

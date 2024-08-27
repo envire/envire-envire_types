@@ -27,7 +27,7 @@ namespace envire
                         && configMap["axis"].hasKey("x") && configMap["axis"].hasKey("y") && configMap["axis"].hasKey("z")
                         && configMap.hasKey("maxEffort") && configMap.hasKey("maxVelocity"))
                     {
-                        name = configMap["name"].toString();
+                        name_ = configMap["name"].toString();
                         axis = base::Vector3d(configMap["axis"]["x"], configMap["axis"]["y"], configMap["axis"]["z"]);
                         maxEffort = configMap["maxEffort"];
                         maxVelocity = configMap["maxVelocity"];
@@ -52,7 +52,6 @@ namespace envire
                     return "prismatic";
                 }
 
-                std::string name;
                 configmaps::ConfigMap configMap;
 
                 base::Vector3d axis;
@@ -63,7 +62,7 @@ namespace envire
                 {
                     configmaps::ConfigMap config;
                     config.append(configMap);
-                    config["name"] = name;
+                    config["name"] = getName();
                     config["type"] = getType();
                     config["axis"]["x"] = axis.x();
                     config["axis"]["y"] = axis.y();

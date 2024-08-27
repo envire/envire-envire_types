@@ -18,12 +18,12 @@ namespace envire
             {
             public:
                 Capsule() : Capsule(std::string(), 0., 0.) {}
-                Capsule(std::string name, double radius, double length) : name(name), radius(radius), length(length) {}
+                Capsule(std::string name, double radius, double length) : EnvireTypeBase(name), radius(radius), length(length) {}
                 Capsule(configmaps::ConfigMap &configMap_) : configMap(configMap_)
                 {
                     if (configMap.hasKey("name") && configMap.hasKey("radius") && configMap.hasKey("length"))
                     {
-                        name = configMap["name"].toString();
+                        name_ = configMap["name"].toString();
                         radius = configMap["radius"];
                         length = configMap["length"];
 
@@ -52,7 +52,6 @@ namespace envire
                     return "capsule";
                 }
 
-                std::string name;
                 double radius;
                 double length;
                 std::shared_ptr<Material> material;
@@ -62,7 +61,7 @@ namespace envire
                 {
                     configmaps::ConfigMap config;
                     config.append(configMap);
-                    config["name"] = name;
+                    config["name"] = getName();
                     config["type"] = getType();
                     config["radius"] = radius;
                     config["length"] = length;

@@ -25,7 +25,7 @@ namespace envire
                         && configMap.hasKey("max_distance")
                         && configMap.hasKey("opening_width"))
                     {
-                        name = configMap["name"].toString();
+                        name_ = configMap["name"].toString();
                         maxDistance = configMap["max_distance"];
                         openingWidth = configMap["opening_width"];
 
@@ -47,7 +47,6 @@ namespace envire
                     return "ray";
                 }
 
-                std::string name;
                 configmaps::ConfigMap configMap;
 
                 double maxDistance;
@@ -57,7 +56,7 @@ namespace envire
                 {
                     configmaps::ConfigMap config;
                     config.append(configMap);
-                    config["name"] = name;
+                    config["name"] = getName();
                     config["max_distance"] = maxDistance;
                     config["opening_width"] = openingWidth;
                     return config;

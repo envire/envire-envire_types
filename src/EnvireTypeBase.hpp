@@ -10,11 +10,18 @@ namespace envire
         class EnvireTypeBase
         {
         public:
-            EnvireTypeBase() = default;
+            EnvireTypeBase() : name_{"NOT SET"} {}
+            EnvireTypeBase(const std::string& name) : name_{name} {}
             virtual ~EnvireTypeBase() = default;
 
             virtual std::string getType() const = 0;
-            // TODO
+            const std::string& getName() const
+            {
+                return name_;
+            }
+
+        protected:
+            std::string name_;
         };
     }
 }

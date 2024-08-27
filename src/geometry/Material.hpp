@@ -59,7 +59,7 @@ namespace envire
                 {
                     if (configMap.hasKey("name"))
                     {
-                        name = configMap["name"].toString();
+                        name_ = configMap["name"].toString();
                         configMap.erase("name");
                     }
                     if (configMap.hasKey("ambientColor"))
@@ -98,7 +98,6 @@ namespace envire
                     return "material";
                 }
 
-                std::string name;
                 Color ambientColor;
                 Color diffuseColor;
                 Color specularColor;
@@ -110,7 +109,7 @@ namespace envire
                 {
                     configmaps::ConfigMap config;
                     config.append(configMap);
-                    config["name"] = name;
+                    config["name"] = getName();
                     config["type"] = getType();
                     config["ambientColor"] = ambientColor.getFullConfigMap();
                     config["diffuseColor"] = diffuseColor.getFullConfigMap();

@@ -25,7 +25,7 @@ namespace envire
                         && configMap.hasKey("minValue") && configMap.hasKey("maxValue")
                         && configMap.hasKey("maxEffort") && configMap.hasKey("maxSpeed"))
                     {
-                        name = configMap["name"].toString();
+                        name_ = configMap["name"].toString();
                         minPosition = configMap["minValue"];
                         maxPosition = configMap["maxValue"];
                         maxEffort = configMap["maxEffort"];
@@ -51,7 +51,6 @@ namespace envire
                     return "DC";
                 }
 
-                std::string name;
                 configmaps::ConfigMap configMap;
 
                 double minPosition;
@@ -63,7 +62,7 @@ namespace envire
                 {
                     configmaps::ConfigMap config;
                     config.append(configMap);
-                    config["name"] = name;
+                    config["name"] = getName();
                     config["type"] = getType();
                     config["minPosition"] = minPosition;
                     config["maxPosition"] = maxPosition;

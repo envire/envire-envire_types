@@ -19,13 +19,13 @@ namespace envire
             {
             public:
                 Box() : Box(std::string(), base::Vector3d::Zero()) {}
-                Box(std::string name, base::Vector3d size) : name(name), size(size) {}
+                Box(std::string name, base::Vector3d size) : EnvireTypeBase(name), size(size) {}
                 Box(configmaps::ConfigMap &configMap_) : configMap(configMap_)
                 {
                     if (configMap.hasKey("name") && configMap.hasKey("size")
                         && configMap["size"].hasKey("x") && configMap["size"].hasKey("y") && configMap["size"].hasKey("z"))
                     {
-                        name = configMap["name"].toString();
+                        name_ = configMap["name"].toString();
                         size.x() = configMap["size"]["x"];
                         size.y() = configMap["size"]["y"];
                         size.z() = configMap["size"]["z"];
@@ -53,7 +53,6 @@ namespace envire
                     return "box";
                 }
 
-                std::string name;
                 base::Vector3d size;
                 std::shared_ptr<Material> material;
                 configmaps::ConfigMap configMap;
@@ -62,7 +61,7 @@ namespace envire
                 {
                     configmaps::ConfigMap config;
                     config.append(configMap);
-                    config["name"] = name;
+                    config["name"] = getName();
                     config["type"] = getType();
                     config["size"]["x"] = size.x();
                     config["size"]["y"] = size.y();

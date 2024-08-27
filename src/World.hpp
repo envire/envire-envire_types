@@ -16,7 +16,7 @@ namespace envire
             World() {}
             World(configmaps::ConfigMap configMap)
             {
-                name = configMap["name"].toString();
+                name_ = configMap["name"].toString();
                 prefix = configMap["prefix"].toString();
 
                 // we avoid the value dublication
@@ -32,7 +32,6 @@ namespace envire
                 return "world";
             }
 
-            std::string name;
             std::string prefix;
             configmaps::ConfigMap configMap;
 
@@ -40,7 +39,7 @@ namespace envire
             {
                 configmaps::ConfigMap config;
                 config.append(configMap);
-                config["name"] = name;
+                config["name"] = getName();
                 config["type"] = getType();
                 config["prefix"] = prefix;
                 return config;

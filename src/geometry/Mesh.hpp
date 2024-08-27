@@ -19,14 +19,14 @@ namespace envire
             public:
                 Mesh() : Mesh(std::string(), std::string()) {}
                 Mesh(std::string name, std::string filename) : Mesh(name, filename, base::Vector3d(1., 1., 1.)) {}
-                Mesh(std::string name, std::string filename, base::Vector3d scale) : name(name), filename(filename), scale(scale) {}
+                Mesh(std::string name, std::string filename, base::Vector3d scale) : EnvireTypeBase(name), filename(filename), scale(scale) {}
                 // TODO: store other values in configMap in the configMap variable
                 Mesh(configmaps::ConfigMap &configMap_) : configMap(configMap_)
                 {
                     if (configMap.hasKey("name") && configMap.hasKey("filename") && configMap.hasKey("scale") &&
                         configMap["scale"].hasKey("x") && configMap["scale"].hasKey("y") && configMap["scale"].hasKey("z"))
                     {
-                        name = configMap["name"].toString();
+                        name_ = configMap["name"].toString();
                         filename = configMap["filename"].toString();
                         scale.x() = configMap["scale"]["x"];
                         scale.y() = configMap["scale"]["y"];
@@ -59,7 +59,6 @@ namespace envire
                     return "mesh";
                 }
 
-                std::string name;
                 std::string filename;
                 base::Vector3d scale;
                 std::shared_ptr<Material> material;
@@ -69,7 +68,7 @@ namespace envire
                 {
                     configmaps::ConfigMap config;
                     config.append(configMap);
-                    config["name"] = name;
+                    config["name"] = getName();
                     config["type"] = getType();
                     config["filename"] = filename;
                     config["scale"]["x"] = scale.x();

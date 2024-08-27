@@ -25,7 +25,7 @@ namespace envire
                         && configMap.hasKey("minValue") && configMap.hasKey("maxValue")
                         && configMap.hasKey("maxEffort") && configMap.hasKey("maxSpeed"))
                     {
-                        name = configMap["name"].toString();
+                        name_ = configMap["name"].toString();
                         p = configMap["p"];
                         i = configMap["i"];
                         d = configMap["d"];
@@ -57,7 +57,6 @@ namespace envire
                     return "PID";
                 }
 
-                std::string name;
                 configmaps::ConfigMap configMap;
 
                 double p;
@@ -72,7 +71,7 @@ namespace envire
                 {
                     configmaps::ConfigMap config;
                     config.append(configMap);
-                    config["name"] = name;
+                    config["name"] = getName();
                     config["type"] = getType();
                     config["p"] = p;
                     config["i"] = i;

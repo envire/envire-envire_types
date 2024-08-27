@@ -17,12 +17,12 @@ namespace envire
             {
             public:
                 Cylinder() : Cylinder(std::string(), 0., 0.) {}
-                Cylinder(std::string name, double radius, double length) : name(name), radius(radius), length(length) {}
+                Cylinder(std::string name, double radius, double length) : EnvireTypeBase(name), radius(radius), length(length) {}
                 Cylinder(configmaps::ConfigMap &configMap_) : configMap(configMap_)
                 {
                     if (configMap.hasKey("name") && configMap.hasKey("radius") && configMap.hasKey("length"))
                     {
-                        name = configMap["name"].toString();
+                        name_ = configMap["name"].toString();
                         radius = configMap["radius"];
                         length = configMap["length"];
 
@@ -51,7 +51,6 @@ namespace envire
                     return "cylinder";
                 }
 
-                std::string name;
                 double radius;
                 double length;
                 std::shared_ptr<Material> material;
@@ -61,7 +60,7 @@ namespace envire
                 {
                     configmaps::ConfigMap config;
                     config.append(configMap);
-                    config["name"] = name;
+                    config["name"] = getName();
                     config["type"] = getType();
                     config["radius"] = radius;
                     config["length"] = length;

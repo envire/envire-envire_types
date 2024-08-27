@@ -17,13 +17,13 @@ namespace envire
             {
             public:
                 Sphere() : Sphere(std::string(), 0.) {}
-                Sphere(std::string name, double radius) : name(name), radius(radius) {}
+                Sphere(std::string name, double radius) : EnvireTypeBase(name), radius(radius) {}
                 // TODO: store other values in configMap in the configMap variable
                 Sphere(configmaps::ConfigMap &configMap_) : configMap(configMap_)
                 {
                     if (configMap.hasKey("name") && configMap.hasKey("radius"))
                     {
-                        name = configMap["name"].toString();
+                        name_ = configMap["name"].toString();
                         radius = configMap["radius"];
 
                         // store all additional values in the configMap parameter
@@ -49,7 +49,6 @@ namespace envire
                     return "sphere";
                 }
 
-                std::string name;
                 double radius;
                 std::shared_ptr<Material> material;
                 configmaps::ConfigMap configMap;
@@ -58,7 +57,7 @@ namespace envire
                 {
                     configmaps::ConfigMap config;
                     config.append(configMap);
-                    config["name"] = name;
+                    config["name"] = getName();
                     config["type"] = getType();
                     config["radius"] = radius;
                     if (material != nullptr)

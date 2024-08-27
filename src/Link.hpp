@@ -16,7 +16,7 @@ namespace envire
             Link() {}
             Link(configmaps::ConfigMap configMap)
             {
-                name = configMap["name"].toString();
+                name_ = configMap["name"].toString();
 
                 // we avoid the value dublication
                 // delete the keys, since we stored their values as class parameters
@@ -30,14 +30,13 @@ namespace envire
                 return "link";
             }
 
-            std::string name;
             configmaps::ConfigMap configMap;
 
             configmaps::ConfigMap getFullConfigMap()
             {
                 configmaps::ConfigMap config;
                 config.append(configMap);
-                config["name"] = name;
+                config["name"] = getName();
                 config["type"] = getType();
                 return config;
             }

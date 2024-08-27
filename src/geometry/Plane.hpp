@@ -18,14 +18,14 @@ namespace envire
             {
             public:
                 Plane() : Plane(std::string(), base::Vector2d(0., 0.)) {}
-                Plane(std::string name, base::Vector2d size) : name(name), size(size) {}
+                Plane(std::string name, base::Vector2d size) : EnvireTypeBase(name), size(size) {}
                 // TODO: store other values in configMap in the configMap variable
                 Plane(configmaps::ConfigMap &configMap_) : configMap(configMap_)
                 {
                     if (configMap.hasKey("name") && configMap.hasKey("size")
                         && configMap["size"].hasKey("x") && configMap["size"].hasKey("y"))
                     {
-                        name = configMap["name"].toString();
+                        name_ = configMap["name"].toString();
                         size.x() = configMap["size"]["x"];
                         size.y() = configMap["size"]["y"];
 
@@ -52,7 +52,6 @@ namespace envire
                     return "plane";
                 }
 
-                std::string name;
                 base::Vector2d size;
                 std::shared_ptr<Material> material;
                 configmaps::ConfigMap configMap;
@@ -61,7 +60,7 @@ namespace envire
                 {
                     configmaps::ConfigMap config;
                     config.append(configMap);
-                    config["name"] = name;
+                    config["name"] = getName();
                     config["type"] = getType();
                     config["size"]["x"] = size.x();
                     config["size"]["y"] = size.y();

@@ -19,12 +19,12 @@ namespace envire
             {
             public:
                 Heightfield() : Heightfield(std::string()) {}
-                Heightfield(std::string name) : name(name) {}
+                Heightfield(std::string name) : EnvireTypeBase(name) {}
                 Heightfield(configmaps::ConfigMap &configMap_) : configMap(configMap_)
                 {
                     if (configMap.hasKey("name"))
                     {
-                        name = configMap["name"].toString();
+                        name_ = configMap["name"].toString();
 
                         // store all additional values in the configMap parameter
                         configMap.erase("name");
@@ -47,7 +47,6 @@ namespace envire
                     return "heightfield";
                 }
 
-                std::string name;
                 std::shared_ptr<Material> material;
                 configmaps::ConfigMap configMap;
 
@@ -55,7 +54,7 @@ namespace envire
                 {
                     configmaps::ConfigMap config;
                     config.append(configMap);
-                    config["name"] = name;
+                    config["name"] = getName();
                     config["type"] = getType();
                     if (material != nullptr)
                         config["material"] = material->getFullConfigMap();

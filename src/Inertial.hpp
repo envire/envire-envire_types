@@ -17,7 +17,7 @@ namespace envire
             Inertial() {}
             Inertial(configmaps::ConfigMap configMap)
             {
-                name = configMap["name"].toString();
+                name_ = configMap["name"].toString();
                 mass = configMap["mass"];
                 xx = configMap["xx"];
                 xy = configMap["xy"];
@@ -45,8 +45,7 @@ namespace envire
                 return "inertial";
             }
 
-            std::string name;
-            configmaps::ConfigMap configMap;
+                        configmaps::ConfigMap configMap;
 
             double mass;
             double xx,xy,xz,yy,yz,zz;
@@ -55,7 +54,7 @@ namespace envire
             {
                 configmaps::ConfigMap config;
                 config.append(configMap);
-                config["name"] = name;
+                config["name"] = getName();
                 config["type"] = getType();
                 config["mass"] = mass;
                 config["xx"] = xx;
