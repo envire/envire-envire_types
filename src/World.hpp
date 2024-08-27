@@ -24,6 +24,10 @@ namespace envire
             }
 
             std::string name;
+            const std::string& getName() const
+            {
+                return name;
+            }
             std::string prefix;
             static inline std::string const type = "world";
             configmaps::ConfigMap configMap;

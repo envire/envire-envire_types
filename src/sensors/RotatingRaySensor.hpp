@@ -32,6 +32,10 @@ namespace envire
                 }
 
                 std::string name;
+                const std::string& getName() const
+                {
+                    return name;
+                }
                 configmaps::ConfigMap configMap;
 
                 configmaps::ConfigMap getFullConfigMap() {

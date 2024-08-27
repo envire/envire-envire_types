@@ -52,6 +52,10 @@ namespace envire
                 }
 
                 std::string name;
+                const std::string& getName() const
+                {
+                    return name;
+                }
                 static inline std::string const type = "mesh";
                 std::string filename;
                 base::Vector3d scale;

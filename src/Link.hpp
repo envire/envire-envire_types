@@ -22,6 +22,10 @@ namespace envire
             }
 
             std::string name;
+            const std::string& getName() const
+            {
+                return name;
+            }
             static inline std::string const type = "link";
             configmaps::ConfigMap configMap;
 
