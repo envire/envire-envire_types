@@ -16,10 +16,14 @@ namespace envire
             class Sphere : public EnvireTypeBase
             {
             public:
-                Sphere() : Sphere(std::string(), 0.) {}
-                Sphere(std::string name, double radius) : EnvireTypeBase(name), radius(radius) {}
+                Sphere() : Sphere(std::string(), 0.)
+                {}
+
+                Sphere(std::string name, double radius) : EnvireTypeBase(name), radius(radius)
+                {}
+
                 // TODO: store other values in configMap_ in the configMap_ variable
-                Sphere(configmaps::ConfigMap &configMap) : EnvireTypeBase(configMap)
+                Sphere(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)
                 {
                     if (configMap_.hasKey("name") && configMap_.hasKey("radius"))
                     {

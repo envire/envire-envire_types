@@ -18,7 +18,7 @@ namespace envire
             public:
                 RotatingRaySensor() {}
 
-                RotatingRaySensor(configmaps::ConfigMap configMap) : EnvireTypeBase(configMap)
+                RotatingRaySensor(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)
                 {
                     if (configMap_.hasKey("name"))
                     {

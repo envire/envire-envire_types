@@ -18,7 +18,7 @@ namespace envire
             public:
                 Fixed() {}
 
-                Fixed(configmaps::ConfigMap configMap) : EnvireTypeBase(configMap)
+                Fixed(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)
                 {
                     if (configMap_.hasKey("name"))
                     {

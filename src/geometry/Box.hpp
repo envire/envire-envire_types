@@ -18,9 +18,13 @@ namespace envire
             class Box : public EnvireTypeBase
             {
             public:
-                Box() : Box(std::string(), base::Vector3d::Zero()) {}
-                Box(std::string name, base::Vector3d size) : EnvireTypeBase(name), size(size) {}
-                Box(configmaps::ConfigMap &configMap) : EnvireTypeBase(configMap)
+                Box() : Box(std::string(), base::Vector3d::Zero())
+                {}
+
+                Box(std::string name, base::Vector3d size) : EnvireTypeBase(name), size(size)
+                {}
+
+                Box(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)
                 {
                     if (configMap_.hasKey("name") && configMap_.hasKey("size")
                         && configMap_["size"].hasKey("x") && configMap_["size"].hasKey("y") && configMap_["size"].hasKey("z"))

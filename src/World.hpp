@@ -14,7 +14,8 @@ namespace envire
         {
         public:
             World() {}
-            World(configmaps::ConfigMap configMap) : EnvireTypeBase(configMap)
+
+            World(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)
             {
                 name_ = configMap_["name"].toString();
                 prefix = configMap_["prefix"].toString();

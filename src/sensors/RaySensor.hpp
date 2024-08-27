@@ -19,7 +19,7 @@ namespace envire
             public:
                 RaySensor() {}
 
-                RaySensor(configmaps::ConfigMap configMap) : EnvireTypeBase(configMap)
+                RaySensor(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)
                 {
                     if (configMap_.hasKey("name")
                         && configMap_.hasKey("max_distance")

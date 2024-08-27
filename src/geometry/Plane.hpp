@@ -17,10 +17,14 @@ namespace envire
             class Plane : public EnvireTypeBase
             {
             public:
-                Plane() : Plane(std::string(), base::Vector2d(0., 0.)) {}
-                Plane(std::string name, base::Vector2d size) : EnvireTypeBase(name), size(size) {}
+                Plane() : Plane(std::string(), base::Vector2d(0., 0.))
+                {}
+
+                Plane(std::string name, base::Vector2d size) : EnvireTypeBase(name), size(size)
+                {}
+
                 // TODO: store other values in configMap_ in the configMap_ variable
-                Plane(configmaps::ConfigMap &configMap) : EnvireTypeBase(configMap)
+                Plane(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)
                 {
                     if (configMap_.hasKey("name") && configMap_.hasKey("size")
                         && configMap_["size"].hasKey("x") && configMap_["size"].hasKey("y"))

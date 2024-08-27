@@ -20,7 +20,7 @@ namespace envire
             public:
                 Continuous() {}
 
-                Continuous(configmaps::ConfigMap configMap) : EnvireTypeBase(configMap)
+                Continuous(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)
                 {
                     if (configMap_.hasKey("name") && configMap_.hasKey("axis")
                         && configMap_["axis"].hasKey("x") && configMap_["axis"].hasKey("y") && configMap_["axis"].hasKey("z")

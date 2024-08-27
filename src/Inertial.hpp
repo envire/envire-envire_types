@@ -15,7 +15,8 @@ namespace envire
         {
         public:
             Inertial() {}
-            Inertial(configmaps::ConfigMap configMap) : EnvireTypeBase(configMap)
+
+            Inertial(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)
             {
                 name_ = configMap_["name"].toString();
                 mass = configMap_["mass"];

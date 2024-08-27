@@ -18,7 +18,8 @@ namespace envire
             {
             public:
                 FeedForwardEffort() {}
-                FeedForwardEffort(configmaps::ConfigMap configMap) : EnvireTypeBase(configMap)
+
+                FeedForwardEffort(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)
                 {
 
                     maxEffortControl = false;

@@ -19,7 +19,7 @@ namespace envire
             public:
                 CameraSensor() {}
 
-                CameraSensor(configmaps::ConfigMap configMap) : EnvireTypeBase(configMap)
+                CameraSensor(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)
                 {
                     if (configMap_.hasKey("name")
                         && configMap_.hasKey("opening_width") && configMap_.hasKey("opening_height"))

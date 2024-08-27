@@ -17,11 +17,17 @@ namespace envire
             class Mesh : public EnvireTypeBase
             {
             public:
-                Mesh() : Mesh(std::string(), std::string()) {}
-                Mesh(std::string name, std::string filename) : Mesh(name, filename, base::Vector3d(1., 1., 1.)) {}
-                Mesh(std::string name, std::string filename, base::Vector3d scale) : EnvireTypeBase(name), filename(filename), scale(scale) {}
+                Mesh() : Mesh(std::string(), std::string())
+                {}
+
+                Mesh(std::string name, std::string filename) : Mesh(name, filename, base::Vector3d(1., 1., 1.))
+                {}
+
+                Mesh(std::string name, std::string filename, base::Vector3d scale) : EnvireTypeBase(name), filename(filename), scale(scale)
+                {}
+
                 // TODO: store other values in configMap_ in the configMap_ variable
-                Mesh(configmaps::ConfigMap &configMap) : EnvireTypeBase(configMap)
+                Mesh(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)
                 {
                     if (configMap_.hasKey("name") && configMap_.hasKey("filename") && configMap_.hasKey("scale") &&
                         configMap_["scale"].hasKey("x") && configMap_["scale"].hasKey("y") && configMap_["scale"].hasKey("z"))

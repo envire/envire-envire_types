@@ -18,9 +18,13 @@ namespace envire
             class Heightfield : public EnvireTypeBase
             {
             public:
-                Heightfield() : Heightfield(std::string()) {}
-                Heightfield(std::string name) : EnvireTypeBase(name) {}
-                Heightfield(configmaps::ConfigMap &configMap) : EnvireTypeBase(configMap)
+                Heightfield() : Heightfield(std::string())
+                {}
+
+                Heightfield(std::string name) : EnvireTypeBase(name)
+                {}
+
+                Heightfield(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)
                 {
                     if (configMap_.hasKey("name"))
                     {

@@ -17,9 +17,13 @@ namespace envire
             class Capsule : public EnvireTypeBase
             {
             public:
-                Capsule() : Capsule(std::string(), 0., 0.) {}
-                Capsule(std::string name, double radius, double length) : EnvireTypeBase(name), radius(radius), length(length) {}
-                Capsule(configmaps::ConfigMap &configMap) : EnvireTypeBase(configMap)
+                Capsule() : Capsule(std::string(), 0., 0.)
+                {}
+
+                Capsule(std::string name, double radius, double length) : EnvireTypeBase(name), radius(radius), length(length)
+                {}
+
+                Capsule(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)
                 {
                     if (configMap_.hasKey("name") && configMap_.hasKey("radius") && configMap_.hasKey("length"))
                     {

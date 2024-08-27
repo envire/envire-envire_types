@@ -16,9 +16,13 @@ namespace envire
             class Cylinder : public EnvireTypeBase
             {
             public:
-                Cylinder() : Cylinder(std::string(), 0., 0.) {}
-                Cylinder(std::string name, double radius, double length) : EnvireTypeBase(name), radius(radius), length(length) {}
-                Cylinder(configmaps::ConfigMap &configMap) : EnvireTypeBase(configMap)
+                Cylinder() : Cylinder(std::string(), 0., 0.)
+                {}
+
+                Cylinder(std::string name, double radius, double length) : EnvireTypeBase(name), radius(radius), length(length)
+                {}
+
+                Cylinder(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)
                 {
                     if (configMap_.hasKey("name") && configMap_.hasKey("radius") && configMap_.hasKey("length"))
                     {

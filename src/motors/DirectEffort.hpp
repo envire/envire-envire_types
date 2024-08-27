@@ -18,7 +18,8 @@ namespace envire
             {
             public:
                 DirectEffort() {}
-                DirectEffort(configmaps::ConfigMap configMap) : EnvireTypeBase(configMap)
+
+                DirectEffort(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)
                 {
 
                     maxEffortControl = false;

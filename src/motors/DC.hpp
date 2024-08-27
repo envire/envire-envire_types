@@ -19,7 +19,7 @@ namespace envire
             public:
                 DC() {}
 
-                DC(configmaps::ConfigMap configMap) : EnvireTypeBase(configMap)
+                DC(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)
                 {
                     if (configMap_.hasKey("name")
                         && configMap_.hasKey("minValue") && configMap_.hasKey("maxValue")

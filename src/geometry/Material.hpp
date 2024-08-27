@@ -16,21 +16,24 @@ namespace envire
         {
             struct Color
             {
-                Color() : r(0), g(0), b(0), a(1) {}
-                Color(configmaps::ConfigMap &configMap)
+                Color() : r(0), g(0), b(0), a(1)
+                {}
+
+                Color(configmaps::ConfigMap configMap)
                 {
                     if (configMap.hasKey("r") && configMap.hasKey("g") && configMap.hasKey("b"))
                     {
                         r = configMap["r"];
                         g = configMap["g"];
                         b = configMap["b"];
-
                     }
 
                     if (configMap.hasKey("a"))
                     {
                         a = configMap["a"];
-                    } else {
+                    }
+                    else
+                    {
                         a = 1.0;
                     }
                 }
@@ -55,7 +58,8 @@ namespace envire
             {
             public:
                 Material() {}
-                Material(configmaps::ConfigMap &configMap) : EnvireTypeBase(configMap)
+
+                Material(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)
                 {
                     if (configMap_.hasKey("name"))
                     {

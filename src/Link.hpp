@@ -14,7 +14,8 @@ namespace envire
         {
         public:
             Link() {}
-            Link(configmaps::ConfigMap configMap) : EnvireTypeBase(configMap)
+
+            Link(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)
             {
                 name_ = configMap_["name"].toString();
 

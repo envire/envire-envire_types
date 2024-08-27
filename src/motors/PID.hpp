@@ -18,7 +18,8 @@ namespace envire
             {
             public:
                 PID() {}
-                PID(configmaps::ConfigMap configMap) : EnvireTypeBase(configMap)
+
+                PID(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)
                 {
                     if (configMap_.hasKey("name")
                         && configMap_.hasKey("p") && configMap_.hasKey("i") && configMap_.hasKey("d")
