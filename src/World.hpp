@@ -10,11 +10,11 @@ namespace envire
 {
     namespace types
     {
-        class World: public EnvireTypeBase
+        class World : public EnvireTypeBase
         {
         public:
             World() {}
-            World(configmaps::ConfigMap configMap)
+            World(configmaps::ConfigMap configMap_) : EnvireTypeBase(configMap_)
             {
                 name_ = configMap["name"].toString();
                 prefix = configMap["prefix"].toString();
@@ -23,8 +23,6 @@ namespace envire
                 // delete the keys, since we stored their values as class parameters
                 configMap.erase("name");
                 configMap.erase("prefix");
-
-                this->configMap = configMap;
             }
 
             std::string getType() const override
@@ -33,7 +31,6 @@ namespace envire
             }
 
             std::string prefix;
-            configmaps::ConfigMap configMap;
 
             configmaps::ConfigMap getFullConfigMap() const override
             {

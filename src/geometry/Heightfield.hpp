@@ -15,12 +15,12 @@ namespace envire
     {
         namespace geometry
         {
-            class Heightfield: public EnvireTypeBase
+            class Heightfield : public EnvireTypeBase
             {
             public:
                 Heightfield() : Heightfield(std::string()) {}
                 Heightfield(std::string name) : EnvireTypeBase(name) {}
-                Heightfield(configmaps::ConfigMap &configMap_) : configMap(configMap_)
+                Heightfield(configmaps::ConfigMap &configMap_) : EnvireTypeBase(configMap_)
                 {
                     if (configMap.hasKey("name"))
                     {
@@ -48,7 +48,6 @@ namespace envire
                 }
 
                 std::shared_ptr<Material> material;
-                configmaps::ConfigMap configMap;
 
                 configmaps::ConfigMap getFullConfigMap() const override
                 {

@@ -19,7 +19,7 @@ namespace envire
             public:
                 Joint6DOFSensor() {}
 
-                Joint6DOFSensor(configmaps::ConfigMap configMap_) : configMap(configMap_)
+                Joint6DOFSensor(configmaps::ConfigMap configMap_) : EnvireTypeBase(configMap_)
                 {
                     if (configMap.hasKey("name")
                         && configMap.hasKey("link")
@@ -42,8 +42,6 @@ namespace envire
                 {
                     return "joint6dof";
                 }
-
-                configmaps::ConfigMap configMap;
 
                 configmaps::ConfigMap getFullConfigMap() const override
                 {

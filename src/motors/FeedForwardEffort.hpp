@@ -14,11 +14,11 @@ namespace envire
     {
         namespace motors
         {
-            class FeedForwardEffort: public EnvireTypeBase
+            class FeedForwardEffort : public EnvireTypeBase
             {
             public:
                 FeedForwardEffort() {}
-                FeedForwardEffort(configmaps::ConfigMap configMap_) : configMap(configMap_)
+                FeedForwardEffort(configmaps::ConfigMap configMap_) : EnvireTypeBase(configMap_)
                 {
 
                     maxEffortControl = false;
@@ -56,8 +56,6 @@ namespace envire
                 {
                     return "ff_torque";
                 }
-
-                configmaps::ConfigMap configMap;
 
                 double minValue, maxValue;
                 double maxEffort;

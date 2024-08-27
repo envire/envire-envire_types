@@ -14,13 +14,13 @@ namespace envire
     {
         namespace geometry
         {
-            class Plane: public EnvireTypeBase
+            class Plane : public EnvireTypeBase
             {
             public:
                 Plane() : Plane(std::string(), base::Vector2d(0., 0.)) {}
                 Plane(std::string name, base::Vector2d size) : EnvireTypeBase(name), size(size) {}
                 // TODO: store other values in configMap in the configMap variable
-                Plane(configmaps::ConfigMap &configMap_) : configMap(configMap_)
+                Plane(configmaps::ConfigMap &configMap_) : EnvireTypeBase(configMap_)
                 {
                     if (configMap.hasKey("name") && configMap.hasKey("size")
                         && configMap["size"].hasKey("x") && configMap["size"].hasKey("y"))
@@ -54,7 +54,6 @@ namespace envire
 
                 base::Vector2d size;
                 std::shared_ptr<Material> material;
-                configmaps::ConfigMap configMap;
 
                 configmaps::ConfigMap getFullConfigMap() const override
                 {

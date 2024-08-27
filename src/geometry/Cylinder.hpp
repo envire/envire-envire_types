@@ -13,12 +13,12 @@ namespace envire
     {
         namespace geometry
         {
-            class Cylinder: public EnvireTypeBase
+            class Cylinder : public EnvireTypeBase
             {
             public:
                 Cylinder() : Cylinder(std::string(), 0., 0.) {}
                 Cylinder(std::string name, double radius, double length) : EnvireTypeBase(name), radius(radius), length(length) {}
-                Cylinder(configmaps::ConfigMap &configMap_) : configMap(configMap_)
+                Cylinder(configmaps::ConfigMap &configMap_) : EnvireTypeBase(configMap_)
                 {
                     if (configMap.hasKey("name") && configMap.hasKey("radius") && configMap.hasKey("length"))
                     {
@@ -54,7 +54,6 @@ namespace envire
                 double radius;
                 double length;
                 std::shared_ptr<Material> material;
-                configmaps::ConfigMap configMap;
 
                 configmaps::ConfigMap getFullConfigMap() const override
                 {

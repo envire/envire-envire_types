@@ -15,7 +15,7 @@ namespace envire
         {
         public:
             Inertial() {}
-            Inertial(configmaps::ConfigMap configMap)
+            Inertial(configmaps::ConfigMap configMap_) : EnvireTypeBase(configMap_)
             {
                 name_ = configMap["name"].toString();
                 mass = configMap["mass"];
@@ -36,16 +36,12 @@ namespace envire
                 configMap.erase("yy");
                 configMap.erase("yz");
                 configMap.erase("zz");
-
-                this->configMap = configMap;
             }
 
             std::string getType() const override
             {
                 return "inertial";
             }
-
-                        configmaps::ConfigMap configMap;
 
             double mass;
             double xx,xy,xz,yy,yz,zz;

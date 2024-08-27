@@ -51,11 +51,11 @@ namespace envire
                 }
             };
 
-            class Material: public EnvireTypeBase
+            class Material : public EnvireTypeBase
             {
             public:
                 Material() {}
-                Material(configmaps::ConfigMap &configMap_) : configMap(configMap_)
+                Material(configmaps::ConfigMap &configMap_) : EnvireTypeBase(configMap_)
                 {
                     if (configMap.hasKey("name"))
                     {
@@ -103,7 +103,6 @@ namespace envire
                 Color specularColor;
                 double shininess;
                 std::string textureFilename;
-                configmaps::ConfigMap configMap;
 
                 configmaps::ConfigMap getFullConfigMap() const override
                 {

@@ -15,12 +15,12 @@ namespace envire
     {
         namespace joints
         {
-            class Continuous: public EnvireTypeBase
+            class Continuous : public EnvireTypeBase
             {
             public:
                 Continuous() {}
 
-                Continuous(configmaps::ConfigMap configMap_) : configMap(configMap_)
+                Continuous(configmaps::ConfigMap configMap_) : EnvireTypeBase(configMap_)
                 {
                     if (configMap.hasKey("name") && configMap.hasKey("axis")
                         && configMap["axis"].hasKey("x") && configMap["axis"].hasKey("y") && configMap["axis"].hasKey("z")
@@ -50,8 +50,6 @@ namespace envire
                 {
                     return "continuous";
                 }
-
-                configmaps::ConfigMap configMap;
 
                 base::Vector3d axis;
                 double maxEffort;

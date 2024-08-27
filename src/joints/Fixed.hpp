@@ -13,12 +13,12 @@ namespace envire
     {
         namespace joints
         {
-            class Fixed: public EnvireTypeBase
+            class Fixed : public EnvireTypeBase
             {
             public:
                 Fixed() {}
 
-                Fixed(configmaps::ConfigMap configMap_) : configMap(configMap_)
+                Fixed(configmaps::ConfigMap configMap_) : EnvireTypeBase(configMap_)
                 {
                     if (configMap.hasKey("name"))
                     {
@@ -39,8 +39,6 @@ namespace envire
                 {
                     return "fixed";
                 }
-
-                configmaps::ConfigMap configMap;
 
                 configmaps::ConfigMap getFullConfigMap() const override
                 {

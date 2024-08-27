@@ -14,14 +14,14 @@ namespace envire
     {
         namespace geometry
         {
-            class Mesh: public EnvireTypeBase
+            class Mesh : public EnvireTypeBase
             {
             public:
                 Mesh() : Mesh(std::string(), std::string()) {}
                 Mesh(std::string name, std::string filename) : Mesh(name, filename, base::Vector3d(1., 1., 1.)) {}
                 Mesh(std::string name, std::string filename, base::Vector3d scale) : EnvireTypeBase(name), filename(filename), scale(scale) {}
                 // TODO: store other values in configMap in the configMap variable
-                Mesh(configmaps::ConfigMap &configMap_) : configMap(configMap_)
+                Mesh(configmaps::ConfigMap &configMap_) : EnvireTypeBase(configMap_)
                 {
                     if (configMap.hasKey("name") && configMap.hasKey("filename") && configMap.hasKey("scale") &&
                         configMap["scale"].hasKey("x") && configMap["scale"].hasKey("y") && configMap["scale"].hasKey("z"))
@@ -62,7 +62,6 @@ namespace envire
                 std::string filename;
                 base::Vector3d scale;
                 std::shared_ptr<Material> material;
-                configmaps::ConfigMap configMap;
 
                 configmaps::ConfigMap getFullConfigMap() const override
                 {

@@ -15,12 +15,12 @@ namespace envire
     {
         namespace geometry
         {
-            class Box: public EnvireTypeBase
+            class Box : public EnvireTypeBase
             {
             public:
                 Box() : Box(std::string(), base::Vector3d::Zero()) {}
                 Box(std::string name, base::Vector3d size) : EnvireTypeBase(name), size(size) {}
-                Box(configmaps::ConfigMap &configMap_) : configMap(configMap_)
+                Box(configmaps::ConfigMap &configMap_) : EnvireTypeBase(configMap_)
                 {
                     if (configMap.hasKey("name") && configMap.hasKey("size")
                         && configMap["size"].hasKey("x") && configMap["size"].hasKey("y") && configMap["size"].hasKey("z"))
@@ -55,7 +55,6 @@ namespace envire
 
                 base::Vector3d size;
                 std::shared_ptr<Material> material;
-                configmaps::ConfigMap configMap;
 
                 configmaps::ConfigMap getFullConfigMap() const override
                 {

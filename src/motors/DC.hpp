@@ -14,12 +14,12 @@ namespace envire
     {
         namespace motors
         {
-            class DC: public EnvireTypeBase
+            class DC : public EnvireTypeBase
             {
             public:
                 DC() {}
 
-                DC(configmaps::ConfigMap configMap_) : configMap(configMap_)
+                DC(configmaps::ConfigMap configMap_) : EnvireTypeBase(configMap_)
                 {
                     if (configMap.hasKey("name")
                         && configMap.hasKey("minValue") && configMap.hasKey("maxValue")
@@ -50,8 +50,6 @@ namespace envire
                 {
                     return "DC";
                 }
-
-                configmaps::ConfigMap configMap;
 
                 double minPosition;
                 double maxPosition;

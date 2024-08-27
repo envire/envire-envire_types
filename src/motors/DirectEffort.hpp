@@ -14,11 +14,11 @@ namespace envire
     {
         namespace motors
         {
-            class DirectEffort: public EnvireTypeBase
+            class DirectEffort : public EnvireTypeBase
             {
             public:
                 DirectEffort() {}
-                DirectEffort(configmaps::ConfigMap configMap_) : configMap(configMap_)
+                DirectEffort(configmaps::ConfigMap configMap_) : EnvireTypeBase(configMap_)
                 {
 
                     maxEffortControl = false;
@@ -56,8 +56,6 @@ namespace envire
                 {
                     return "direct_effort";
                 }
-
-                configmaps::ConfigMap configMap;
 
                 double minValue, maxValue;
                 double maxEffort;

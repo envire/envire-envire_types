@@ -13,13 +13,13 @@ namespace envire
     {
         namespace geometry
         {
-            class Sphere: public EnvireTypeBase
+            class Sphere : public EnvireTypeBase
             {
             public:
                 Sphere() : Sphere(std::string(), 0.) {}
                 Sphere(std::string name, double radius) : EnvireTypeBase(name), radius(radius) {}
                 // TODO: store other values in configMap in the configMap variable
-                Sphere(configmaps::ConfigMap &configMap_) : configMap(configMap_)
+                Sphere(configmaps::ConfigMap &configMap_) : EnvireTypeBase(configMap_)
                 {
                     if (configMap.hasKey("name") && configMap.hasKey("radius"))
                     {
@@ -51,7 +51,6 @@ namespace envire
 
                 double radius;
                 std::shared_ptr<Material> material;
-                configmaps::ConfigMap configMap;
 
                 configmaps::ConfigMap getFullConfigMap() const override
                 {

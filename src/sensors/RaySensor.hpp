@@ -14,12 +14,12 @@ namespace envire
     {
         namespace sensors
         {
-            class RaySensor: public EnvireTypeBase
+            class RaySensor : public EnvireTypeBase
             {
             public:
                 RaySensor() {}
 
-                RaySensor(configmaps::ConfigMap configMap_) : configMap(configMap_)
+                RaySensor(configmaps::ConfigMap configMap_) : EnvireTypeBase(configMap_)
                 {
                     if (configMap.hasKey("name")
                         && configMap.hasKey("max_distance")
@@ -46,8 +46,6 @@ namespace envire
                 {
                     return "ray";
                 }
-
-                configmaps::ConfigMap configMap;
 
                 double maxDistance;
                 double openingWidth;

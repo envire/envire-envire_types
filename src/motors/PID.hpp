@@ -14,11 +14,11 @@ namespace envire
     {
         namespace motors
         {
-            class PID: public EnvireTypeBase
+            class PID : public EnvireTypeBase
             {
             public:
                 PID() {}
-                PID(configmaps::ConfigMap configMap_) : configMap(configMap_)
+                PID(configmaps::ConfigMap configMap_) : EnvireTypeBase(configMap_)
                 {
                     if (configMap.hasKey("name")
                         && configMap.hasKey("p") && configMap.hasKey("i") && configMap.hasKey("d")
@@ -56,8 +56,6 @@ namespace envire
                 {
                     return "PID";
                 }
-
-                configmaps::ConfigMap configMap;
 
                 double p;
                 double i;

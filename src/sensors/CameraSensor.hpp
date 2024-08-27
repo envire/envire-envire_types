@@ -14,12 +14,12 @@ namespace envire
     {
         namespace sensors
         {
-            class CameraSensor: public EnvireTypeBase
+            class CameraSensor : public EnvireTypeBase
             {
             public:
                 CameraSensor() {}
 
-                CameraSensor(configmaps::ConfigMap configMap_) : configMap(configMap_)
+                CameraSensor(configmaps::ConfigMap configMap_) : EnvireTypeBase(configMap_)
                 {
                     if (configMap.hasKey("name")
                         && configMap.hasKey("opening_width") && configMap.hasKey("opening_height"))
@@ -45,8 +45,6 @@ namespace envire
                 {
                     return "camera";
                 }
-
-                configmaps::ConfigMap configMap;
 
                 double openingWidth;
                 double openingHeight;

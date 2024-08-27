@@ -14,12 +14,12 @@ namespace envire
     {
         namespace geometry
         {
-            class Capsule: public EnvireTypeBase
+            class Capsule : public EnvireTypeBase
             {
             public:
                 Capsule() : Capsule(std::string(), 0., 0.) {}
                 Capsule(std::string name, double radius, double length) : EnvireTypeBase(name), radius(radius), length(length) {}
-                Capsule(configmaps::ConfigMap &configMap_) : configMap(configMap_)
+                Capsule(configmaps::ConfigMap &configMap_) : EnvireTypeBase(configMap_)
                 {
                     if (configMap.hasKey("name") && configMap.hasKey("radius") && configMap.hasKey("length"))
                     {
@@ -55,7 +55,6 @@ namespace envire
                 double radius;
                 double length;
                 std::shared_ptr<Material> material;
-                configmaps::ConfigMap configMap;
 
                 configmaps::ConfigMap getFullConfigMap() const override
                 {

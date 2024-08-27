@@ -13,12 +13,12 @@ namespace envire
     {
         namespace sensors
         {
-            class RotatingRaySensor: public EnvireTypeBase
+            class RotatingRaySensor : public EnvireTypeBase
             {
             public:
                 RotatingRaySensor() {}
 
-                RotatingRaySensor(configmaps::ConfigMap configMap_) : configMap(configMap_)
+                RotatingRaySensor(configmaps::ConfigMap configMap_) : EnvireTypeBase(configMap_)
                 {
                     if (configMap.hasKey("name"))
                     {
@@ -39,8 +39,6 @@ namespace envire
                 {
                     return "rotating ray";
                 }
-
-                configmaps::ConfigMap configMap;
 
                 configmaps::ConfigMap getFullConfigMap() const override
                 {
