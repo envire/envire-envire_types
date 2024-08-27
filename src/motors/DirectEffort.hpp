@@ -70,8 +70,8 @@ namespace envire
                     config.append(configMap);
                     config["name"] = getName();
                     config["type"] = getType();
-                    configMap["minValue"] = minValue;
-                    configMap["maxValue"] = maxValue;
+                    config["minValue"] = minValue;
+                    config["maxValue"] = maxValue;
                     config["maxEffort"] = maxEffort;
                     config["maxSpeed"] = maxSpeed;
                     config["maxEffortControl"] = maxEffortControl;
