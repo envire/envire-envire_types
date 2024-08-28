@@ -1,0 +1,12 @@
+name:
+  type: string
+ambientColor:
+  type: object
+diffuseColor:
+  type: object
+specularColor:
+  type: object
+shininess:
+  type: number
+textureFilename:
+  type: string

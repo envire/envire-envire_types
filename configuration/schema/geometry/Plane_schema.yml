@@ -1,0 +1,15 @@
+name:
+  type: string
+  required: true
+size:
+  type: object
+  required: true
+    x:
+      type: number
+      required: true
+    y:
+      type: number
+      required: true
+material:
+  type: object
+  #properties: TODO

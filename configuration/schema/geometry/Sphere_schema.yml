@@ -1,0 +1,9 @@
+name:
+  type: string
+  required: true
+radius:
+  type: number
+  required: true
+material:
+  type: object
+  #properties: TODO

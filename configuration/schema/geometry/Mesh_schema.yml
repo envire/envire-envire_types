@@ -1,0 +1,22 @@
+name:
+  type: string
+  required: true
+filename:
+  type: string
+  required: true
+scale:
+  type: object
+  required: true
+  properties:
+    x:
+      type: number
+      required: true
+    y:
+      type: number
+      required: true
+    z:
+      type: number
+      required: true
+material:
+  type: object
+  #properties: TODO
