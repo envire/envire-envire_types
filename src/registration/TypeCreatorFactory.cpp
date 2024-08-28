@@ -45,9 +45,11 @@ namespace envire
             {
                 LOG_WARN_S << "No config schema registered for the type " << className;
             }
-            else
+            else if(!configSchema.validate(configmap))
             {
-                configSchema.validate(configmap);
+                // TODO: Handle name not being a string
+                const auto nameString = configmap.hasKey("name") ? std::string{"; item name: "} + configmap["name"].toString() : std::string{""};
+                LOG_ERROR_S << "Invalid configuration for type " << className << nameString;
             }
 
             return creator->createItem(configmap);
@@ -95,7 +97,7 @@ namespace envire
             const auto len = exploded.size();
             const auto basePath = std::string{SCHEMA_PATH};
 
-            return basePath + "/" + (len > 5 ? exploded[len-3] + "/" : "") + exploded[len-1] + ".yml";
+            return basePath + "/" + (len > 5 ? exploded[len-3] + "/" : "") + exploded[len-1] + "_schema.yml";
         }
 
         TypeCreatorFactory::CreatorMap& TypeCreatorFactory::getCreatorMap()
