@@ -1,0 +1,17 @@
+name:
+  type: string
+  required: true
+minValue:
+  type: number
+  required: true
+maxValue:
+  type: number
+  required: true
+maxEffort:
+  type: number
+  required: true
+maxSpeed:
+  type: number
+  required: true
+maxEffortControl:
+  type: number

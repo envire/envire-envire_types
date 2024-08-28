@@ -2,10 +2,13 @@ name:
   type: string
 ambientColor:
   type: object
+  # properties:
 diffuseColor:
   type: object
+  # properties:
 specularColor:
   type: object
+  # properties:
 shininess:
   type: number
 textureFilename:

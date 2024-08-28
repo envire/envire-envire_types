@@ -16,5 +16,4 @@ size:
       required: true
 material:
   type: object
-  properties: 
-    -
+  # properties:
