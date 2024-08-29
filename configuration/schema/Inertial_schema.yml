@@ -1,0 +1,24 @@
+name:
+  type: string
+  required: true
+mass:
+  type: number
+  required: true
+xx:
+  type: number
+  required: true
+xy:
+  type: number
+  required: true
+xz:
+  type: number
+  required: true
+yy:
+  type: number
+  required: true
+yz:
+  type: number
+  required: true
+zz:
+  type: number
+  required: true

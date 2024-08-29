@@ -1,0 +1,28 @@
+name:
+  type: string
+  required: true
+axis:
+  type: object
+  required: true
+  properties:
+    x:
+      type: number
+      required: true
+    y:
+      type: number
+      required: true
+    z:
+      type: number
+      required: true
+minPosition:
+  type: number
+  required: true
+maxPosition:
+  type: number
+  required: true
+maxEffort:
+  type: number
+  required: true
+maxVelocity:
+  type: number
+  required: true
