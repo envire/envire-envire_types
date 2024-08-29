@@ -9,4 +9,67 @@ length:
   required: true
 material:
   type: object
-  #properties: TODO
+  properties:
+    name:
+      type: string
+    ambientColor:
+      type: object
+      properties:
+        r:
+          type: number
+          minimum: 0.0
+          maximum: 1.0
+        g:
+          type: number
+          minimum: 0.0
+          maximum: 1.0
+        b:
+          type: number
+          minimum: 0.0
+          maximum: 1.0
+        a:
+          type: number
+          minimum: 0.0
+          maximum: 1.0
+    diffuseColor:
+      type: object
+      properties:
+        r:
+          type: number
+          minimum: 0.0
+          maximum: 1.0
+        g:
+          type: number
+          minimum: 0.0
+          maximum: 1.0
+        b:
+          type: number
+          minimum: 0.0
+          maximum: 1.0
+        a:
+          type: number
+          minimum: 0.0
+          maximum: 1.0
+    specularColor:
+      type: object
+      properties:
+        r:
+          type: number
+          minimum: 0.0
+          maximum: 1.0
+        g:
+          type: number
+          minimum: 0.0
+          maximum: 1.0
+        b:
+          type: number
+          minimum: 0.0
+          maximum: 1.0
+        a:
+          type: number
+          minimum: 0.0
+          maximum: 1.0
+    shininess:
+      type: number
+    textureFilename:
+      type: string
