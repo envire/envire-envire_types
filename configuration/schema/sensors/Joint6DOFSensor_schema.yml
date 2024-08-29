@@ -1,0 +1,9 @@
+name:
+  type: string
+  required: true
+link:
+  type: string
+  required: true
+joint:
+  type: string
+  required: true

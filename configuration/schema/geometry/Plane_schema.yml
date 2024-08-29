@@ -4,6 +4,7 @@ name:
 size:
   type: object
   required: true
+  properties:
     x:
       type: number
       required: true
