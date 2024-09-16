@@ -65,6 +65,11 @@ namespace envire
                     return config;
                 }
 
+                const base::Vector3d& getAxis() const
+                {
+                    return axis;
+                }
+
                 /**Grants access to boost serialization */
                 friend class boost::serialization::access;
 
