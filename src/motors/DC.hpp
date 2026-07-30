@@ -21,23 +21,34 @@ namespace envire
 
                 DC(const configmaps::ConfigMap& configMap) : EnvireTypeBase(configMap)
                 {
+                    // A DC (velocity) motor is defined by its name and its
+                    // effort/speed limits. minValue/maxValue are position limits
+                    // that only make sense for a position (PID) motor, so they
+                    // are optional here.
                     if (configMap_.hasKey("name")
-                        && configMap_.hasKey("minValue") && configMap_.hasKey("maxValue")
                         && configMap_.hasKey("maxEffort") && configMap_.hasKey("maxSpeed"))
                     {
                         name_ = configMap_["name"].toString();
-                        minPosition = configMap_["minValue"];
-                        maxPosition = configMap_["maxValue"];
                         maxEffort = configMap_["maxEffort"];
                         maxSpeed = configMap_["maxSpeed"];
 
                         // we avoid the value dublication
                         // delete the keys, since we stored their values as class parameters
                         configMap_.erase("name");
-                        configMap_.erase("minValue");
-                        configMap_.erase("maxValue");
                         configMap_.erase("maxEffort");
                         configMap_.erase("maxSpeed");
+
+                        // Optional position limits.
+                        if (configMap_.hasKey("minValue"))
+                        {
+                            minPosition = configMap_["minValue"];
+                            configMap_.erase("minValue");
+                        }
+                        if (configMap_.hasKey("maxValue"))
+                        {
+                            maxPosition = configMap_["maxValue"];
+                            configMap_.erase("maxValue");
+                        }
                     }
                     else
                     {
@@ -75,8 +86,9 @@ namespace envire
                 }
 
             private:
-                double minPosition;
-                double maxPosition;
+                // Position limits are optional for a DC motor; default to 0.
+                double minPosition = 0.0;
+                double maxPosition = 0.0;
                 double maxEffort;
                 double maxSpeed;
             };
