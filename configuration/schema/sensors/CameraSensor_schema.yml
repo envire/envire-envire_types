@@ -1,0 +1,9 @@
+name:
+  type: string
+  required: true
+opening_width:
+  type: number
+  required: true
+opening_height:
+  type: number
+  required: true

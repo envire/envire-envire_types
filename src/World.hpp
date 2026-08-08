@@ -4,6 +4,7 @@
 
 #include <base/Eigen.hpp>
 #include <configmaps/ConfigMap.hpp>
+#include <configmaps/ConfigSchema.hpp>
 #include <envire_core/plugin/Plugin.hpp>
 
 namespace envire

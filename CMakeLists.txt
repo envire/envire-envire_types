@@ -8,3 +8,5 @@ find_package(Rock)
 
 rock_init()
 rock_standard_layout()
+
+install(DIRECTORY configuration/schema/ DESTINATION share/envire_types/schema)

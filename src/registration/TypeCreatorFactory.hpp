@@ -2,10 +2,11 @@
 #pragma once
 
 #include <string>
-#include <map>
 #include <memory>
+#include <unordered_map>
 
 #include <base-logging/Logging.hpp>
+#include <configmaps/ConfigSchema.hpp>
 
 #include "TypeCreatorInterface.hpp"
 
@@ -16,7 +17,8 @@ namespace envire
         class TypeCreatorFactory
         {
             typedef std::shared_ptr<TypeCreatorInterface> CreatorPtr;
-            typedef std::map<std::string, CreatorPtr> CreatorMap;
+            typedef std::unordered_map<std::string, CreatorPtr> CreatorMap;
+            typedef std::unordered_map<std::string, configmaps::ConfigSchema> ConfigSchemaMap;
 
             public:
                 // TODO: if the className is already registered
@@ -26,8 +28,13 @@ namespace envire
 
                 static bool getCreator(std::string className, CreatorPtr& creator);
 
+                static bool getConfigSchema(const std::string& className, configmaps::ConfigSchema& configSchema);
+
             private:
+                static void registerConfigSchema(const std::string& className);
+                static std::string setupConfigSchemaPath(const std::string& className);
                 static CreatorMap& getCreatorMap();
+                static ConfigSchemaMap& getConfigSchemaMap();
         };
     }
 }

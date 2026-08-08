@@ -1,0 +1,9 @@
+name:
+  type: string
+  required: true
+max_distance:
+  type: number
+  required: true
+opening_width:
+  type: number
+  required: true

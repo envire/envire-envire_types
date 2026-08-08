@@ -51,3 +51,4 @@ rock_library(envire_types
 )
 
 install_plugin_info(envire_types)
+add_compile_definitions(SCHEMA_PATH=\"${CMAKE_INSTALL_PREFIX}/share/envire_types/schema\")
